@@ -389,62 +389,181 @@
           "gap_pp": 12.53
         }
       ]
+    },
+    "station_stops": {
+      "unit": "次/日",
+      "as_of": "2026-08-16~2026-08-22（整週）",
+      "method": "reference.daily_schedules(tra_daily) 的 data.schedules[].stations[] 逐日展開，平日/週末各取平均",
+      "query": "queries/04_station_stops.sql",
+      "data_file": "data/04_station_stops.csv",
+      "caveat": "⚠️ 資料只涵蓋 232 站（244 站中漏 12 站，見 inventory §三.1）。bottom 已排除 9 個已知漏抓站",
+      "excluded_from_bottom": [
+        "嘉北",
+        "太原",
+        "成功",
+        "新烏日",
+        "新馬",
+        "松竹",
+        "潭子",
+        "精武",
+        "頭家厝"
+      ],
+      "top": [
+        {
+          "station": "板橋",
+          "weekday": 318,
+          "weekend": 328
+        },
+        {
+          "station": "新竹",
+          "weekday": 318,
+          "weekend": 314
+        },
+        {
+          "station": "臺北",
+          "weekday": 318,
+          "weekend": 328
+        },
+        {
+          "station": "松山",
+          "weekday": 315,
+          "weekend": 323
+        },
+        {
+          "station": "七堵",
+          "weekday": 277,
+          "weekend": 274
+        },
+        {
+          "station": "樹林",
+          "weekday": 260,
+          "weekend": 265
+        }
+      ],
+      "bottom": [
+        {
+          "station": "內獅",
+          "weekday": 4,
+          "weekend": 4
+        },
+        {
+          "station": "枋山",
+          "weekday": 7,
+          "weekend": 7
+        },
+        {
+          "station": "加祿",
+          "weekday": 9,
+          "weekend": 9
+        },
+        {
+          "station": "瀧溪",
+          "weekday": 12,
+          "weekend": 12
+        },
+        {
+          "station": "大富",
+          "weekday": 13,
+          "weekend": 13
+        },
+        {
+          "station": "三民",
+          "weekday": 13,
+          "weekend": 13
+        }
+      ]
+    },
+    "segment_delay": {
+      "unit": "分/區間",
+      "as_of": "2026-07-24~2026-08-22",
+      "method": "delay_trajectory 相鄰觀測點的誤點增量（後點 − 前點）。已濾 |delta|>30 的尖刺，最小樣本 200 次觀測。312 個區間入選",
+      "query": "queries/06_segment_delay.sql",
+      "data_file": "data/06_segment_delay.csv",
+      "caveat": "⚠️⚠️ 這是【觀測點對】不是【停靠站對】—— TrainLiveBoard 每 2 分鐘輪詢一次，短距離區間（<3km，列車 2 分鐘內走完）的增量會被輪詢時機系統性影響。證據：汐止→五堵 +2.07 分、緊接的五堵→七堵 −1.38 分，一掉一追高度對稱，比較可能是輪詢/停等造成的假象。**距離較長、樣本較多的區間才可信**",
+      "worst": [
+        {
+          "segment": "汐止→五堵",
+          "avg_delta_min": 2.07,
+          "pct_worsening": 94.8,
+          "km": 1.3,
+          "observations": 633
+        },
+        {
+          "segment": "蘇澳→蘇澳新",
+          "avg_delta_min": 1.11,
+          "pct_worsening": 88.0,
+          "km": 2.9,
+          "observations": 560
+        },
+        {
+          "segment": "鶯歌→桃園",
+          "avg_delta_min": 1.06,
+          "pct_worsening": 65.8,
+          "km": 5.6,
+          "observations": 3304
+        },
+        {
+          "segment": "山佳→樹林",
+          "avg_delta_min": 0.87,
+          "pct_worsening": 56.8,
+          "km": 3.8,
+          "observations": 3366
+        },
+        {
+          "segment": "沙崙→中洲",
+          "avg_delta_min": 0.72,
+          "pct_worsening": 53.8,
+          "km": 4.1,
+          "observations": 1096
+        },
+        {
+          "segment": "山里→鹿野",
+          "avg_delta_min": 0.71,
+          "pct_worsening": 49.3,
+          "km": 5.6,
+          "observations": 850
+        }
+      ],
+      "best": [
+        {
+          "segment": "玉里→東里",
+          "avg_delta_min": -0.52,
+          "km": 6.6,
+          "observations": 799
+        },
+        {
+          "segment": "中壢→埔心",
+          "avg_delta_min": -0.59,
+          "km": 5.6,
+          "observations": 3195
+        },
+        {
+          "segment": "和仁→崇德",
+          "avg_delta_min": -0.64,
+          "km": 9.7,
+          "observations": 1423
+        },
+        {
+          "segment": "五堵→七堵",
+          "avg_delta_min": -1.38,
+          "km": 5.0,
+          "observations": 235
+        }
+      ],
+      "most_reliable_finding": {
+        "segment": "鶯歌→桃園",
+        "avg_delta_min": 1.06,
+        "pct_worsening": 65.8,
+        "km": 5.6,
+        "observations": 3304,
+        "why": "樣本 3,304 次、距離 5.6 km（超過輪詢間隔可走完的距離）、且鄰接區間沒有對稱的追回現象"
+      }
     }
   },
   "pending": {
-    "station_stops": {
-      "status": "blocked",
-      "reason": "時刻表 pipeline 漏 12 站（台中高架化 7 站、嘉北、新馬等），bottom 排名不可發。詳見 inventory.md §三.1",
-      "unblocked_by": "排除已知漏抓站並在正文寫明，或修好 data-collectors 的 rail_timetable 轉換器",
-      "query": "queries/04_station_stops.sql",
-      "partial": {
-        "top_2026_08_19": [
-          {
-            "station": "新竹",
-            "value": 318
-          },
-          {
-            "station": "臺北",
-            "value": 315
-          },
-          {
-            "station": "板橋",
-            "value": 315
-          },
-          {
-            "station": "松山",
-            "value": 312
-          },
-          {
-            "station": "七堵",
-            "value": 276
-          }
-        ],
-        "verified_remote": [
-          {
-            "station": "內獅",
-            "value": 4
-          },
-          {
-            "station": "枋山",
-            "value": 7
-          },
-          {
-            "station": "加祿",
-            "value": 9
-          }
-        ],
-        "note": "top 值為 2026-08-19 單日；正式版要改成整週平日/週末平均。秘境站三站已用即時位置資料交叉驗證為真"
-      }
-    },
-    "segment_delay": {
-      "status": "pending_offpeak",
-      "reason": "需掃 158k 列 × delay_trajectory JSON（該欄位 138MB），依團隊規則避開台灣時間 10:00–20:00",
-      "query": "queries/06_segment_delay.sql"
-    },
     "pop_per_trip": {
-      "status": "blocked",
-      "reason": "分母來自 station_stops，受同一個 pipeline 缺口影響",
+      "status": "ready",
+      "reason": "04 已跑完（整週），可組裝；記得排除 9 個已知漏抓站",
       "query": "queries/10_pop_per_trip.sql"
     }
   },
