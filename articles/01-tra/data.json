@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "article": "01-tra",
+    "subject": "臺灣鐵路（台鐵）",
+    "generated": "2026-08-23",
+    "status": "draft",
+    "definitions": {
+      "proximity_radius_m": 1000,
+      "proximity_note": "本系列所有『周邊』一律指 1 km 圓形緩衝區（步行約 12–15 分鐘），跨篇一致才能比較",
+      "delay_threshold_min": 5,
+      "delay_threshold_note": "沿用台鐵官方的 5 分鐘門檻，但口徑有三種，見 stats.ontime_*"
+    }
+  },
+
+  "stats": {
+    "station_count_official": {
+      "value": 242, "unit": "站", "as_of": "2024",
+      "method": "官方統計：67 客貨運站 + 174 純客運站 + 花蓮港純貨運站",
+      "source": "行政院國情簡介－臺鐵（民國 113 年）",
+      "source_url": "https://www.ey.gov.tw/state/A44E5E33CDA7E738/1f34ef94-2ff5-40ab-b526-e2fedd358a36"
+    },
+    "station_count_db": {
+      "value": 243, "unit": "站", "as_of": "2026-08-23",
+      "method": "rail.stations(system_id='tra') 244 列扣除資料庫假站『臺北-環島』(1001)",
+      "query": "queries/01_stations.sql",
+      "caveat": "與官方 242 差 1 站，未逐站比對；正文以官方值為準"
+    },
+    "route_length_km": {
+      "value": 1065.0, "unit": "km", "as_of": "2024",
+      "method": "官方營業里程（雙線 751.1 + 單線 313.9）",
+      "source": "行政院國情簡介－臺鐵（民國 113 年）",
+      "source_url": "https://www.ey.gov.tw/state/A44E5E33CDA7E738/1f34ef94-2ff5-40ab-b526-e2fedd358a36",
+      "caveat": "⚠️ 不可用 rail.lines.length_km 加總（863.6 km，含重疊段），見 queries/02_length.sql"
+    },
+    "electrified_km": {
+      "value": 997.7, "unit": "km", "as_of": "2024",
+      "method": "官方統計，非電化區間 67.3 km",
+      "source": "行政院國情簡介－臺鐵（民國 113 年）"
+    },
+    "daily_trains_weekday": {
+      "value": 909, "unit": "班/日", "range": [896, 928], "as_of": "2026-06-24~2026-08-23",
+      "method": "reference.daily_schedules(tra_daily) 近 60 天平日 train_count 平均",
+      "query": "queries/03_daily_trains.sql"
+    },
+    "daily_trains_weekend": {
+      "value": 916, "unit": "班/日", "as_of": "2026-06-24~2026-08-23",
+      "method": "同上，週六日",
+      "query": "queries/03_daily_trains.sql",
+      "note": "週末反而比平日多（加班車）"
+    },
+    "ontime_enroute_pct": {
+      "value": 76.91, "unit": "%", "as_of": "2026-07-24~2026-08-23",
+      "method": "口徑 A（乘客體感）：沿途任一觀測點誤點 >5 分即算誤點，分母為觀測到的班次",
+      "query": "queries/05_delay_calibers.sql",
+      "caveat": "TrainLiveBoard 觀測涵蓋率 84.7%，非官方發車紀錄"
+    },
+    "ontime_near_dest_pct": {
+      "value": 92.86, "unit": "%", "as_of": "2026-07-24~2026-08-23",
+      "method": "口徑 B（近官方定義）：只看最後觀測落在終點前 3 站內的班次，>5 分算誤點",
+      "query": "queries/05_delay_calibers.sql"
+    },
+    "ontime_official_pct": {
+      "value": 97.02, "unit": "%", "as_of": "2025",
+      "method": "口徑 C（官方）：到達終點站延誤 ≤5 分為準點",
+      "source": "台鐵公司，經聯合報導引",
+      "source_url": "https://udn.com/news/story/7266/9313461"
+    },
+    "ontime_official_target_2026": {
+      "value": 97.7, "unit": "%", "as_of": "2026",
+      "method": "台鐵 2026 年準點率目標",
+      "source_url": "https://udn.com/news/story/7266/9313461"
+    },
+    "p90_delay_min": {
+      "value": 8.0, "unit": "分", "as_of": "2026-07-24~2026-08-23",
+      "method": "每日 p90 誤點分鐘的 30 日平均。用 p90 不用 max，因為軌跡資料有尖刺",
+      "query": "queries/05_delay_calibers.sql"
+    },
+    "delay_coverage_pct": {
+      "value": 84.7, "unit": "%", "as_of": "2026-07-24~2026-08-23",
+      "method": "TrainLiveBoard 實際觀測到的班次 ÷ 班表班次",
+      "query": "queries/05_delay_calibers.sql"
+    },
+    "delay_observation_days": {
+      "value": 176, "unit": "天", "as_of": "2026-02-28~2026-08-22",
+      "method": "analytics.tra_delay_summary_daily 天數；其中 9 天缺班表",
+      "caveat": "9 天缺班表的誤點指標為 NULL"
+    },
+    "stations_with_zero_cvs": {
+      "value": 38, "unit": "站", "as_of": "2026-03",
+      "method": "1 km 內 0 家便利商店的車站數（243 站中）",
+      "query": "queries/09_convenience_1km.sql"
+    }
+  },
+
+  "rankings": {
+    "county_stations": {
+      "as_of": "2026-08-23", "query": "queries/01_stations.sql",
+      "note": "花蓮縣站數最多、臺北市只有 4 站",
+      "top": [
+        {"county": "花蓮縣", "value": 25}, {"county": "新北市", "value": 24},
+        {"county": "臺中市", "value": 23}, {"county": "宜蘭縣", "value": 22},
+        {"county": "屏東縣", "value": 20}
+      ],
+      "bottom": [
+        {"county": "嘉義市", "value": 2}, {"county": "臺北市", "value": 4},
+        {"county": "嘉義縣", "value": 4}, {"county": "南投縣", "value": 5},
+        {"county": "雲林縣", "value": 5}
+      ]
+    },
+    "elevation": {
+      "unit": "m", "as_of": "2024",
+      "method": "內政部 NLSC 20m DTM，z13 取樣，244 站全命中",
+      "query": "queries/07_elevation.py",
+      "caveat": "⚠️ 是地面高程，不是軌道面高程；高架站與地下站會有落差",
+      "top": [
+        {"station": "車埕", "value": 325}, {"station": "海端", "value": 296},
+        {"station": "水里", "value": 289}, {"station": "池上", "value": 267},
+        {"station": "三義", "value": 265}
+      ],
+      "bottom": [
+        {"station": "鼓山", "value": 0}, {"station": "林邊", "value": 1},
+        {"station": "佳冬", "value": 3}, {"station": "鎮安", "value": 3},
+        {"station": "三塊厝", "value": 3}
+      ]
+    },
+    "population_1km": {
+      "unit": "人", "as_of": "2023",
+      "method": "村里人口面積加權（admin.villages 幾何 × spatial.village_attributes 人口，7,972 村里）",
+      "query": "queries/08_population_1km.sql",
+      "data_file": "data/08_population_1km.csv",
+      "caveat": "⚠️ 假設村里內人口均勻分布；山區大面積村里會失真。是戶籍人口不是日間人口",
+      "top": [
+        {"station": "板橋", "value": 120702}, {"station": "萬華", "value": 102956},
+        {"station": "松山", "value": 86700}, {"station": "正義", "value": 75188},
+        {"station": "科工館", "value": 70503}
+      ],
+      "bottom": [
+        {"station": "和仁", "value": 16}, {"station": "和平", "value": 21},
+        {"station": "漢本", "value": 29}, {"station": "枋野", "value": 30},
+        {"station": "武塔", "value": 31}
+      ]
+    },
+    "convenience_1km": {
+      "unit": "家", "as_of": "2026-03",
+      "method": "reference.poi category='convenience_store'，ST_DWithin 1 km",
+      "query": "queries/09_convenience_1km.sql",
+      "data_file": "data/09_convenience_1km.csv",
+      "top": [
+        {"station": "臺北", "value": 117, "seven": 55, "family": 38},
+        {"station": "板橋", "value": 76, "seven": 32, "family": 30},
+        {"station": "中壢", "value": 71, "seven": 27, "family": 18},
+        {"station": "桃園", "value": 62, "seven": 27, "family": 19},
+        {"station": "萬華", "value": 62, "seven": 27, "family": 18}
+      ],
+      "zero_count": 38
+    }
+  },
+
+  "pending": {
+    "station_stops": {
+      "status": "blocked",
+      "reason": "時刻表 pipeline 漏 12 站（台中高架化 7 站、嘉北、新馬等），bottom 排名不可發。詳見 inventory.md §三.1",
+      "unblocked_by": "排除已知漏抓站並在正文寫明，或修好 data-collectors 的 rail_timetable 轉換器",
+      "query": "queries/04_station_stops.sql",
+      "partial": {
+        "top_2026_08_19": [
+          {"station": "新竹", "value": 318}, {"station": "臺北", "value": 315},
+          {"station": "板橋", "value": 315}, {"station": "松山", "value": 312},
+          {"station": "七堵", "value": 276}
+        ],
+        "verified_remote": [
+          {"station": "內獅", "value": 4}, {"station": "枋山", "value": 7}, {"station": "加祿", "value": 9}
+        ],
+        "note": "top 值為 2026-08-19 單日；正式版要改成整週平日/週末平均。秘境站三站已用即時位置資料交叉驗證為真"
+      }
+    },
+    "segment_delay": {
+      "status": "pending_offpeak",
+      "reason": "需掃 158k 列 × delay_trajectory JSON（該欄位 138MB），依團隊規則避開台灣時間 10:00–20:00",
+      "query": "queries/06_segment_delay.sql"
+    },
+    "pop_per_trip": {
+      "status": "blocked",
+      "reason": "分母來自 station_stops，受同一個 pipeline 缺口影響",
+      "query": "queries/10_pop_per_trip.sql"
+    }
+  }
+}

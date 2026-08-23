@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "base": "https://mini-taiwan-pulse.itsmigu.com/embed",
+    "note": "MapLibre + 自託管 Protomaps 底圖，不論被讀幾次都零 Mapbox 費用",
+    "params_doc": "../../../mini-taiwan-pulse/docs/features/embeddable-map/README.md",
+    "rule": "每張互動地圖都要在 figures/ 備一張靜態圖，taiwan.md 併入時 iframe 會掉"
+  },
+  "embeds": [
+    {
+      "id": "tra-network",
+      "section": "一、一條 1,065 公里的線",
+      "caption": "台鐵路網全圖：242 站、1,065 公里營業里程",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=120.98&lat=23.75&z=6.8&layers=rail&rsys=tra&style=dark",
+      "fallback_image": "figures/tra-network.png",
+      "height": 520,
+      "status": "untested"
+    },
+    {
+      "id": "tra-secret-stations",
+      "section": "四、一天只有 4 班車的站",
+      "caption": "南迴線秘境站：內獅、枋山、加祿",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=120.68&lat=22.30&z=10.5&layers=rail&rsys=tra&style=dark",
+      "fallback_image": "figures/tra-secret-stations.png",
+      "height": 420,
+      "status": "untested"
+    },
+    {
+      "id": "tra-elevation",
+      "section": "六、從海拔 0 公尺到 325 公尺",
+      "caption": "車埕（325 m）與鼓山（0 m）",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=120.86&lat=23.83&z=11&layers=rail&rsys=tra&style=dark",
+      "fallback_image": "figures/tra-elevation.png",
+      "height": 420,
+      "status": "untested"
+    }
+  ],
+  "todo": [
+    "實際開網址驗證每個 embed 的畫面（相機位置 / 圖層有沒有出來）",
+    "產出 figures/*.png 靜態圖 fallback",
+    "確認 layers=rail 在 embed 端的 key 正確（manifest key 為 rail，未在 embed 實測）"
+  ]
+}
