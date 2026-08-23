@@ -110,7 +110,7 @@ A 只要沿途有**任何一次**被回報誤點滿 5 分鐘就算誤點——�
 - **242 個車站**（官方 2024 統計：67 個客貨運站、174 個純客運站，加上花蓮港純貨運站）
 - 每天約 **909 班**列車（平日），週末 **916 班**——**週末比平日還多**
 
-> 🗺️ 互動地圖：`tra-network`（`embeds.json`）
+> 🗺️ 互動地圖：`tra-network`（網址見 [`embeds.json`](./embeds.json)，靜態圖 `figures/tra-network.png`）
 
 ### 站最多的縣市不是六都
 
@@ -212,7 +212,7 @@ A 只要沿途有**任何一次**被回報誤點滿 5 分鐘就算誤點——�
 
 `[待補：秘境站敘事]`
 
-> 🗺️ 互動地圖：`tra-secret-stations`
+> 🗺️ 互動地圖：`tra-secret-stations`（靜態圖 `figures/tra-secret-stations.png`）
 
 ---
 
@@ -251,7 +251,7 @@ A 只要沿途有**任何一次**被回報誤點滿 5 分鐘就算誤點——�
 
 `[待補：林邊的地層下陷與鐵路高架化脈絡]`
 
-> 🗺️ 互動地圖：`tra-elevation`
+> 🗺️ 互動地圖：`tra-elevation`（靜態圖 `figures/tra-elevation.png`）
 
 ---
 
