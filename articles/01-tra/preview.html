@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>台鐵的 97% 與 77%</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#F1F2F4; --surface:#FFFFFF; --surface-2:#E9EBEF;
+  --ink:#141A24; --ink-2:#3C4654; --muted:#5C6675;
+  --rule:#D6DAE1; --rule-soft:#E4E7EC;
+  --accent:#D4571E; --accent-2:#1F5C9E;
+  --accent-wash:#FBEDE6; --warn-wash:#FDF3E3; --warn-edge:#C98A20;
+  --shadow:0 1px 2px rgba(20,26,36,.06), 0 8px 24px rgba(20,26,36,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0F141C; --surface:#161D28; --surface-2:#1D2531;
+    --ink:#E4E7EB; --ink-2:#B7BEC9; --muted:#8B94A3;
+    --rule:#28313F; --rule-soft:#1F2836;
+    --accent:#DE6C33; --accent-2:#5292D9;
+    --accent-wash:#2A1D15; --warn-wash:#261E10; --warn-edge:#D8A244;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.32);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0F141C; --surface:#161D28; --surface-2:#1D2531;
+  --ink:#E4E7EB; --ink-2:#B7BEC9; --muted:#8B94A3;
+  --rule:#28313F; --rule-soft:#1F2836;
+  --accent:#DE6C33; --accent-2:#5292D9;
+  --accent-wash:#2A1D15; --warn-wash:#261E10; --warn-edge:#D8A244;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.32);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.85; letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px; margin:0 auto; padding:0 24px 96px}
+.col{max-width:640px; margin-inline:auto}
+p{margin:0 0 1.3em}
+a{color:var(--accent-2); text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+strong{font-weight:700}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+
+/* ── 報頭：月台看板 ───────────────────────────── */
+.masthead{
+  border-bottom:1px solid var(--rule); margin-bottom:56px;
+  padding:18px 0; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.mark{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+}
+.mark b{color:var(--accent); font-weight:600}
+.masthead .spacer{flex:1}
+.themebtn{
+  font:inherit; font-size:12px; font-family:"IBM Plex Mono",monospace;
+  background:transparent; color:var(--muted); border:1px solid var(--rule);
+  border-radius:999px; padding:5px 13px; cursor:pointer; letter-spacing:.05em;
+}
+.themebtn:hover{color:var(--ink); border-color:var(--muted)}
+
+/* ── Hero ───────────────────────────────────── */
+.hero{margin:0 auto 12px; max-width:720px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:20px; font-weight:600;
+}
+h1{
+  font-family:"Noto Serif TC",serif; font-weight:900;
+  font-size:clamp(2.1rem,5.4vw,3.4rem); line-height:1.24; letter-spacing:-.01em;
+  margin:0 0 24px; text-wrap:balance;
+}
+.standfirst{
+  font-size:1.14rem; line-height:1.8; color:var(--ink-2); max-width:640px;
+  margin:0 0 40px;
+}
+.byline{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted);
+  display:flex; gap:18px; flex-wrap:wrap; padding-bottom:36px;
+  border-bottom:1px solid var(--rule-soft); margin-bottom:52px;
+}
+
+/* ── 三個數字 ───────────────────────────────── */
+.trio{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+  overflow:hidden; margin:0 0 12px;
+}
+.trio div{background:var(--surface); padding:26px 24px 24px}
+.trio .k{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:10px;
+}
+.trio .v{
+  font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:2.5rem;
+  line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums;
+}
+.trio .v small{font-size:1rem; font-weight:400; color:var(--muted); margin-left:3px}
+.trio .d{font-size:.86rem; color:var(--muted); line-height:1.6; margin-top:9px}
+.trio div:nth-child(1) .v{color:var(--accent-2)}
+.trio div:nth-child(3) .v{color:var(--accent)}
+.trio-note{
+  font-size:.82rem; color:var(--muted); font-family:"IBM Plex Mono",monospace;
+  margin:0 0 56px; text-align:right;
+}
+
+/* ── 章節 ───────────────────────────────────── */
+section{margin:0 0 64px}
+h2{
+  font-family:"Noto Serif TC",serif; font-weight:700;
+  font-size:clamp(1.45rem,3.2vw,1.95rem); line-height:1.4; margin:0 0 22px;
+  text-wrap:balance; display:flex; gap:14px; align-items:baseline;
+}
+h2 .n{
+  font-family:"IBM Plex Mono",monospace; font-size:.72em; font-weight:400;
+  color:var(--accent); flex:none; letter-spacing:.02em;
+}
+h3{
+  font-family:"Noto Sans TC",sans-serif; font-weight:700; font-size:1.06rem;
+  margin:36px 0 14px; color:var(--ink);
+}
+
+/* ── figure ─────────────────────────────────── */
+figure{
+  margin:36px 0; background:var(--surface); border:1px solid var(--rule);
+  border-radius:4px; overflow:hidden; box-shadow:var(--shadow);
+}
+figure .fhead{padding:22px 24px 4px}
+figure .ftitle{font-weight:700; font-size:1rem; margin-bottom:4px}
+figure .fsub{font-size:.84rem; color:var(--muted); line-height:1.6}
+figure .fbody{padding:8px 24px 20px}
+figcaption{
+  padding:14px 24px; border-top:1px solid var(--rule-soft); background:var(--surface-2);
+  font-size:.82rem; color:var(--muted); line-height:1.65;
+}
+svg{display:block; width:100%; height:auto; overflow:visible}
+.gridline{stroke:var(--rule-soft); stroke-width:1}
+.axis-t{fill:var(--muted); font-family:"IBM Plex Mono",monospace; font-size:11px}
+.row-t{fill:var(--ink-2); font-family:"Noto Sans TC",sans-serif; font-size:13px}
+.val-t{fill:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums}
+.dot{cursor:pointer}
+.dot circle{transition:r .12s ease}
+.dot:hover circle.hit{r:11}
+.connect{stroke:var(--rule); stroke-width:2}
+.legend{
+  display:flex; gap:20px; flex-wrap:wrap; padding:0 24px 18px;
+  font-size:.82rem; color:var(--ink-2);
+}
+.legend span{display:flex; align-items:center; gap:7px}
+.sw{width:11px; height:11px; border-radius:50%; flex:none}
+
+/* ── 地圖 ───────────────────────────────────── */
+.mapfig iframe{
+  display:block; width:100%; height:480px; border:0; background:var(--surface-2);
+}
+.mapfig img{display:block; width:100%; height:auto}
+.maplink{
+  display:inline-flex; align-items:center; gap:6px; font-size:.82rem;
+  font-family:"IBM Plex Mono",monospace; color:var(--accent-2); text-decoration:none;
+  border-bottom:1px solid currentColor; padding-bottom:1px;
+}
+
+/* ── 警告框 ─────────────────────────────────── */
+.callout{
+  background:var(--warn-wash); border:1px solid var(--rule);
+  border-left:3px solid var(--warn-edge); border-radius:0 4px 4px 0;
+  padding:22px 24px; margin:32px 0; font-size:.95rem; line-height:1.78;
+}
+.callout .ct{
+  font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px;
+  font-size:.95rem;
+}
+.callout p:last-child{margin-bottom:0}
+
+/* ── 表格 ───────────────────────────────────── */
+.tw{overflow-x:auto; margin:28px 0; border:1px solid var(--rule); border-radius:4px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:.92rem; min-width:420px}
+th,td{padding:11px 16px; text-align:left; border-bottom:1px solid var(--rule-soft)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:600;
+  background:var(--surface-2); border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+td.hi{color:var(--accent); font-weight:600}
+
+/* ── 方法 ───────────────────────────────────── */
+details{
+  border:1px solid var(--rule); border-radius:4px; background:var(--surface);
+  padding:0; margin:32px 0;
+}
+summary{
+  padding:18px 24px; cursor:pointer; font-weight:700; font-size:.95rem;
+  list-style:none; display:flex; align-items:center; gap:10px;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:"+"; font-family:"IBM Plex Mono",monospace; color:var(--accent);
+  font-size:1.1rem; line-height:1;
+}
+details[open] summary::before{content:"−"}
+details .dbody{padding:0 24px 8px; font-size:.92rem; color:var(--ink-2)}
+details ol{padding-left:1.3em; margin:0 0 1.2em}
+details li{margin-bottom:.7em}
+
+footer{
+  border-top:1px solid var(--rule); padding-top:28px; margin-top:72px;
+  font-size:.84rem; color:var(--muted); line-height:1.8;
+}
+footer ul{padding-left:1.2em; margin:.6em 0 0}
+.draft{
+  font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--muted);
+  background:var(--surface-2); border:1px dashed var(--rule);
+  border-radius:3px; padding:12px 16px; margin:0 0 40px;
+}
+
+#tip{
+  position:fixed; pointer-events:none; opacity:0; transition:opacity .12s;
+  background:var(--ink); color:var(--ground); font-size:12px; line-height:1.5;
+  padding:7px 11px; border-radius:4px; z-index:50; max-width:230px;
+  font-family:"IBM Plex Mono",monospace; box-shadow:0 4px 14px rgba(0,0,0,.2);
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+@media (max-width:600px){
+  body{font-size:16px}
+  .wrap{padding:0 18px 72px}
+  figure .fhead,figure .fbody,figcaption,.legend{padding-inline:16px}
+  .mapfig iframe{height:340px}
+}
+</style>
+</head>
+<body>
+<div id="tip" role="status" aria-live="polite"></div>
+<div class="wrap">
+
+<header class="masthead">
+  <span class="mark">Mini Taiwan Stories <b>/ 01</b></span>
+  <span class="spacer"></span>
+  <button class="themebtn" id="tbtn" type="button">切換配色</button>
+</header>
+
+<div class="draft">
+  預覽稿 · 數字全部來自 <span class="num">data.json</span> 台帳，每筆都帶 as_of／method／query
+</div>
+
+<div class="hero">
+  <div class="eyebrow">誤點 · 資料調查</div>
+  <h1>台鐵的 97% 與 77%：<br>中間那 15.5 個百分點是什麼</h1>
+  <p class="standfirst">
+    台鐵公布 2025 年的準點率是 97.02%。把同一批列車的沿途每一站都算進去，
+    剩 76.89%。兩個數字都是真的——差在那把尺量的是「終點」還是「你上車的那一站」。
+  </p>
+  <div class="byline">
+    <span>2026-08-23</span>
+    <span>資料窗口 2026-07-24 → 08-22</span>
+    <span>23,263 個觀測班次</span>
+  </div>
+</div>
+
+<div class="trio">
+  <div>
+    <div class="k">官方公布 · 2025</div>
+    <div class="v">97.02<small>%</small></div>
+    <div class="d">到達終點站延誤 5 分鐘以內</div>
+  </div>
+  <div>
+    <div class="k">最後觀測 · 自算</div>
+    <div class="v">92.39<small>%</small></div>
+    <div class="d">同一批車，看它快到終點時的狀態</div>
+  </div>
+  <div>
+    <div class="k">沿途任一站 · 自算</div>
+    <div class="v">76.89<small>%</small></div>
+    <div class="d">同一批車，同一個分母</div>
+  </div>
+</div>
+<p class="trio-note">後兩欄分母相同（23,263 班），差距純粹來自口徑</p>
+
+<div class="col">
+<p>
+  如果你常搭台鐵，97.02% 大概會讓你愣一下。一百班車只有三班誤點？
+</p>
+<p>
+  兩邊都沒說謊。台鐵的準點定義是<strong>列車到達終點站時延誤 5 分鐘以內</strong>——注意，是「到達終點站」。
+  你在中壢等一班誤點 12 分鐘的自強號，只要它一路追回、進台北時只差 4 分鐘，
+  這班車在統計上是<strong>準點</strong>的。你等的那 12 分鐘，不在任何一張報表裡。
+</p>
+<p>
+  這不是台鐵在藏。這是全世界鐵路統計的通用做法，也是台鐵自己承認有問題的地方——
+  2026 年 2 月，台鐵表示現行口徑「與民眾感受有落差」，要推動<strong>各站準點率監控</strong>新制。
+  但到目前為止，各站的數字還沒有公布。
+</p>
+<p>所以我們自己算了一次。</p>
+</div>
+
+<section>
+<div class="col">
+<h2><span class="n">01</span>15.5 個百分點，是「後來追回來了」</h2>
+<p>
+  只給兩個數字很容易被說成是選擇性呈現，所以我們把同一批列車、<strong>用同一個分母</strong>，
+  換四把尺各量一次：
+</p>
+</div>
+
+<figure>
+  <div class="fhead">
+    <div class="ftitle">同一批 23,263 個班次，四種量法</div>
+    <div class="fsub">準點 = 誤點 &lt; 5 分。門檻與台鐵官方相同，差別只在「看哪一刻」。</div>
+  </div>
+  <div class="fbody">
+    <svg viewBox="0 0 640 268" role="img" aria-label="五種口徑的準點率點圖：沿途最大 76.89%、沿途 p90 86.95%、最後觀測 92.39%、近終點子集 92.87%、官方公布 97.02%">
+      <g class="gridline">
+        <line x1="200" y1="30" x2="200" y2="212"/><line x1="310" y1="30" x2="310" y2="212"/>
+        <line x1="420" y1="30" x2="420" y2="212"/><line x1="530" y1="30" x2="530" y2="212"/>
+        <line x1="620" y1="30" x2="620" y2="212"/>
+      </g>
+      <g class="axis-t" text-anchor="middle">
+        <text x="200" y="228">75%</text><text x="310" y="228">80</text>
+        <text x="420" y="228">85</text><text x="530" y="228">90</text><text x="620" y="228">95</text>
+      </g>
+
+      <!-- 口徑差標註帶 -->
+      <rect x="181.6" y="24" width="359.6" height="10" fill="var(--accent-wash)"/>
+      <line x1="181.6" y1="29" x2="541.2" y2="29" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="361" y="18" text-anchor="middle" class="val-t" fill="var(--accent)">口徑差 15.50pp</text>
+
+      <g class="row" data-tip="沿途最大誤點 &lt; 5 分｜23,263 班｜最接近乘客體感">
+        <text x="0" y="57" class="row-t">沿途任一站</text>
+        <text x="196" y="57" class="val-t" text-anchor="end">76.89</text>
+        <g class="dot" tabindex="0"><circle class="hit" cx="181.6" cy="52" r="7" fill="var(--accent)"/></g>
+      </g>
+      <g class="row" data-tip="沿途 p90 誤點 &lt; 5 分｜23,263 班｜濾掉只誤點一下下的雜訊">
+        <text x="0" y="95" class="row-t">沿途 p90</text>
+        <text x="336" y="95" class="val-t" text-anchor="end">86.95</text>
+        <g class="dot" tabindex="0"><circle class="hit" cx="401.9" cy="90" r="7" fill="var(--accent)" opacity=".72"/></g>
+      </g>
+      <g class="row" data-tip="最後一次觀測 &lt; 5 分｜23,263 班｜與第一列同分母">
+        <text x="0" y="133" class="row-t">最後觀測</text>
+        <text x="536" y="133" class="val-t" text-anchor="end">92.39</text>
+        <g class="dot" tabindex="0"><circle class="hit" cx="541.2" cy="128" r="7" fill="var(--accent)"/></g>
+      </g>
+      <g class="row" data-tip="近終點子集｜14,162 班｜分母不同，只比上一列高 0.48pp">
+        <text x="0" y="171" class="row-t">近終點子集</text>
+        <text x="546" y="171" class="val-t" text-anchor="end" fill="var(--muted)">92.87</text>
+        <g class="dot" tabindex="0"><circle class="hit" cx="551.8" cy="166" r="7" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="2.5 2.5"/></g>
+      </g>
+      <g class="row" data-tip="台鐵公布 2025 全年｜非本文自算｜到達終點站延誤 ≤5 分">
+        <text x="0" y="209" class="row-t" fill="var(--accent-2)">官方公布</text>
+        <text x="586" y="209" class="val-t" text-anchor="end" fill="var(--accent-2)">97.02</text>
+        <g class="dot" tabindex="0"><circle class="hit" cx="593.2" cy="204" r="7" fill="none" stroke="var(--accent-2)" stroke-width="2"/></g>
+      </g>
+
+      <text x="0" y="256" class="axis-t">實心＝本文自算　空心＝子集／官方值</text>
+    </svg>
+  </div>
+  <figcaption>
+    第一列與第三列算的是<strong>同一批班次、同一個分母</strong>，唯一差別是看哪一刻——所以中間 15.5 個百分點沒有別的解釋。
+    第四列把分母換成「最後觀測落在終點前 3 站內」的子集，只高 0.48pp，證明那 15.5 不是挑樣本挑出來的。
+  </figcaption>
+</figure>
+
+<div class="col">
+<p>
+  台鐵的統計沒有算錯，它只是選擇在終點站按下碼表。而你是在中間某一站上車的。
+</p>
+<p>
+  至於自算的 92.39% 與官方 97.02% 還差的 4 個百分點，來自觀測方式與統計期間的不同，
+  我們沒辦法用手上的資料消掉它——文末說清楚差在哪。
+</p>
+
+<h3>跑越遠的車，越有機會把誤點追回來</h3>
+<p>把同一批列車依車種拆開，這件事就變得很直白：</p>
+</div>
+
+<figure>
+  <div class="fhead">
+    <div class="ftitle">各車種：沿途準點 vs 最後觀測準點</div>
+    <div class="fsub">同車種同分母。兩點之間的距離＝這個車種「追回來」的幅度。</div>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--accent)"></i>沿途任一站準點</span>
+    <span><i class="sw" style="background:var(--accent-2)"></i>最後觀測準點</span>
+  </div>
+  <div class="fbody">
+    <svg viewBox="0 0 640 300" role="img" aria-label="各車種沿途準點率與最後觀測準點率的啞鈴圖，莒光差距最大 35.6 個百分點，區間快最小 12.5">
+      <g class="gridline">
+        <line x1="150" y1="18" x2="150" y2="248"/><line x1="255" y1="18" x2="255" y2="248"/>
+        <line x1="360" y1="18" x2="360" y2="248"/><line x1="465" y1="18" x2="465" y2="248"/>
+        <line x1="570" y1="18" x2="570" y2="248"/>
+      </g>
+      <g class="axis-t" text-anchor="middle">
+        <text x="150" y="264">55%</text><text x="255" y="264">65</text>
+        <text x="360" y="264">75</text><text x="465" y="264">85</text><text x="570" y="264">95</text>
+      </g>
+      <text x="600" y="14" class="axis-t" text-anchor="end">差距</text>
+
+      <g class="row" data-tip="莒光｜219 班｜沿途 58.45% → 最後觀測 94.06%">
+        <text x="0" y="42" class="row-t">莒光</text>
+        <line class="connect" x1="185.7" y1="37" x2="559.6" y2="37"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="185.7" cy="37" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="559.6" cy="37" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="42" class="val-t" text-anchor="end" fill="var(--accent)">35.6</text>
+      </g>
+      <g class="row" data-tip="自強｜1,258 班｜沿途 60.17% → 最後觀測 87.12%">
+        <text x="0" y="84" class="row-t">自強</text>
+        <line class="connect" x1="203.8" y1="79" x2="486.8" y2="79"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="203.8" cy="79" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="486.8" cy="79" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="84" class="val-t" text-anchor="end">27.0</text>
+      </g>
+      <g class="row" data-tip="自強(3000) EMU3000｜2,195 班｜68.97% → 92.53%">
+        <text x="0" y="126" class="row-t">自強 3000</text>
+        <text x="0" y="140" class="axis-t">EMU3000</text>
+        <line class="connect" x1="296.2" y1="121" x2="543.6" y2="121"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="296.2" cy="121" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="543.6" cy="121" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="126" class="val-t" text-anchor="end">23.6</text>
+      </g>
+      <g class="row" data-tip="普悠瑪｜686 班｜70.26% → 92.13%">
+        <text x="0" y="168" class="row-t">普悠瑪</text>
+        <line class="connect" x1="309.7" y1="163" x2="539.4" y2="163"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="309.7" cy="163" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="539.4" cy="163" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="168" class="val-t" text-anchor="end">21.9</text>
+      </g>
+      <g class="row" data-tip="區間｜16,139 班｜79.16% → 92.60%｜佔全部班次七成">
+        <text x="0" y="210" class="row-t">區間</text>
+        <line class="connect" x1="403.2" y1="205" x2="544.3" y2="205"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="403.2" cy="205" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="544.3" cy="205" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="210" class="val-t" text-anchor="end">13.4</text>
+      </g>
+      <g class="row" data-tip="區間快｜2,570 班｜80.82% → 93.35%">
+        <text x="0" y="252" class="row-t">區間快</text>
+        <line class="connect" x1="420.6" y1="247" x2="552.2" y2="247"/>
+        <g class="dot" tabindex="0"><circle class="hit" cx="420.6" cy="247" r="6.5" fill="var(--accent)"/></g>
+        <g class="dot" tabindex="0"><circle class="hit" cx="552.2" cy="247" r="6.5" fill="var(--accent-2)"/></g>
+        <text x="640" y="252" class="val-t" text-anchor="end">12.5</text>
+      </g>
+      <text x="0" y="288" class="axis-t">排序：差距由大到小</text>
+    </svg>
+  </div>
+  <figcaption>
+    莒光號沿途只有 58% 的時間是準點的，快到終點時有 94%。一趟車從南部開到台北，中間有的是路程可以慢慢追回來。
+    區間車跑得短、停站少，本來就不容易掉點，也沒那麼多機會追。
+  </figcaption>
+</figure>
+
+<div class="col">
+<p>
+  所以「準點率」這個詞在長程車與通勤車身上，指的其實不是同一件事。
+  你在斗六月台上等一班誤點的莒光號，它最後仍然會是一班「準點列車」。
+</p>
+</div>
+</section>
+
+<section>
+<div class="col">
+<h2><span class="n">02</span>一條 1,065 公里的線</h2>
+</div>
+
+<figure class="mapfig">
+  <iframe src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.98&amp;lat=23.75&amp;z=6.8&amp;layers=rail&amp;rsys=tra&amp;style=dark&amp;date=2026-08-06"
+          loading="lazy" title="台鐵路網互動地圖"></iframe>
+  <figcaption>
+    台鐵路網全圖，可拖曳縮放。營業里程 1,065.0 公里，其中 997.7 公里已電氣化。
+    地圖來自 <a href="https://mini-taiwan-pulse.itsmigu.com/">Mini Taiwan Pulse</a>，底圖 © OpenStreetMap。
+  </figcaption>
+</figure>
+
+<div class="col">
+<h3>站最多的縣市不是六都</h3>
+</div>
+<div class="tw">
+  <table>
+    <thead><tr><th>縣市</th><th style="text-align:right">車站數</th><th>—</th></tr></thead>
+    <tbody>
+      <tr><td>花蓮縣</td><td class="n hi">25</td><td></td></tr>
+      <tr><td>新北市</td><td class="n">24</td><td></td></tr>
+      <tr><td>臺中市</td><td class="n">23</td><td></td></tr>
+      <tr><td>宜蘭縣</td><td class="n">22</td><td></td></tr>
+      <tr><td>屏東縣</td><td class="n">20</td><td></td></tr>
+      <tr><td style="color:var(--muted)">⋯</td><td></td><td></td></tr>
+      <tr><td><strong>臺北市</strong></td><td class="n hi">4</td><td style="color:var(--muted);font-size:.86rem">全台鐵路網的心臟，卻只有 4 站</td></tr>
+      <tr><td>嘉義市</td><td class="n">2</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="col">
+<p>
+  花蓮 25 站、台北 4 站。這個反差說明了台鐵的本質：它是一條長程幹線，
+  不是為都會通勤設計的系統。每天 <span class="num">909</span> 班列車（平日）跑在這條線上，
+  週末反而更多，<span class="num">916</span> 班——台鐵的週末不是離峰，是另一種尖峰。
+</p>
+</div>
+</section>
+
+<section>
+<div class="col">
+<h2><span class="n">03</span>一天只有 4 班車的站</h2>
+<p>
+  整週逐日展開時刻表，一天約有 1.9 萬次停靠分配到各站。板橋、臺北、新竹各 318 次（平日），
+  另一端則是這些：
+</p>
+</div>
+
+<figure class="mapfig">
+  <iframe src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.68&amp;lat=22.30&amp;z=10.5&amp;layers=rail&amp;rsys=tra&amp;style=dark&amp;date=2026-08-06"
+          loading="lazy" title="南迴線秘境車站互動地圖"></iframe>
+  <figcaption>南迴線沿屏東枋山海岸線：加祿、內獅、枋山三站連在一起，是台鐵最有名的「祕境三兄弟」。</figcaption>
+</figure>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>車站</th><th style="text-align:right">平日停靠</th><th>位置</th></tr></thead>
+    <tbody>
+      <tr><td><strong>內獅</strong></td><td class="n hi">4</td><td>南迴線・屏東枋山</td></tr>
+      <tr><td>枋山</td><td class="n">7</td><td>南迴線・屏東枋山</td></tr>
+      <tr><td>加祿</td><td class="n">9</td><td>南迴線・屏東枋山</td></tr>
+      <tr><td>瀧溪</td><td class="n">12</td><td>南迴線・臺東太麻里</td></tr>
+      <tr><td>大富</td><td class="n">13</td><td>臺東線・花蓮光復</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="col">
+<p><strong>內獅站一天只有 4 班車。</strong>早上兩班、下午兩班——去了沒趕上，就是等好幾個小時。</p>
+</div>
+
+<div class="callout">
+  <div class="ct">⚠ 這份排名排除了 11 個站，因為它們的數字是壞的</div>
+  <p>
+    算這一節的時候發現，台中線豐原到烏日這一段<strong>整段不能用</strong>：高架化通車後 TDX 換了新的車站代碼，
+    但下游把資料轉成三維軌道的程式裡有一張「新代碼 → 舊代碼」對照表，是通車前寫的、通車後沒人拿掉。
+    結果潭子的紀錄被寫到<strong>栗林</strong>頭上、新烏日與成功都被寫到<strong>烏日</strong>頭上，
+    而且同一班車兩站只留一筆——不是加起來，是<strong>互相吃掉</strong>。
+  </p>
+  <p>
+    嘉北站則是另一個原因：程式先幫每班車挑一條三維軌道，再把「不在那條軌道上的停靠站」砍掉。
+    嘉北只出現在 271 條軌道中的 3 條裡，所以 79 筆停靠只活下 2 筆。
+  </p>
+  <p>
+    這是這篇文章的意外收穫：<strong>開放資料的每一次轉手，都可能把 A 站的數字記到 B 站頭上，
+    而且從結果完全看不出來</strong>——栗林的 112 班看起來完全正常，實際上混了潭子的資料。
+  </p>
+</div>
+</section>
+
+<section>
+<div class="col">
+<h2><span class="n">04</span>每一班車要服務多少人</h2>
+<p>
+  把車站周邊 1 公里（步行 12–15 分鐘）的戶籍人口，除以平日停靠班次，
+  得到一個粗糙但好用的指標：這個站每來一班車，要接住多少住在附近的人。
+</p>
+</div>
+<div class="tw">
+  <table>
+    <thead><tr><th>車站</th><th style="text-align:right">周邊 1km 人口</th><th style="text-align:right">平日班次</th><th style="text-align:right">每班車</th></tr></thead>
+    <tbody>
+      <tr><td>正義<span style="color:var(--muted)"> 高雄</span></td><td class="n">75,188</td><td class="n">93</td><td class="n hi">808</td></tr>
+      <tr><td>科工館<span style="color:var(--muted)"> 高雄</span></td><td class="n">70,503</td><td class="n">100</td><td class="n">705</td></tr>
+      <tr><td>民族<span style="color:var(--muted)"> 高雄</span></td><td class="n">65,248</td><td class="n">93</td><td class="n">702</td></tr>
+      <tr><td>內惟<span style="color:var(--muted)"> 高雄</span></td><td class="n">55,863</td><td class="n">94</td><td class="n">594</td></tr>
+      <tr><td>萬華<span style="color:var(--muted)"> 臺北</span></td><td class="n">102,956</td><td class="n">175</td><td class="n">588</td></tr>
+      <tr><td colspan="4" style="color:var(--muted);font-size:.86rem">另一端</td></tr>
+      <tr><td>三貂嶺<span style="color:var(--muted)"> 新北</span></td><td class="n">117</td><td class="n">79</td><td class="n">1.5</td></tr>
+      <tr><td>和平<span style="color:var(--muted)"> 花蓮</span></td><td class="n">21</td><td class="n">35</td><td class="n">0.6</td></tr>
+      <tr><td>和仁<span style="color:var(--muted)"> 花蓮</span></td><td class="n">16</td><td class="n">25</td><td class="n hi">0.6</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="col">
+<p>
+  <strong>前四名全部在高雄。</strong>這幾個站是鐵路地下化之後新設的通勤站，
+  周邊是密集的舊市區，但班次配置還停留在「台鐵是長途幹線」的邏輯裡。
+</p>
+<p>
+  三貂嶺周邊只住 117 個人，卻有 79 班車停——因為它是平溪線的分歧點，
+  班次多不是因為有人要上車，是因為它是路網的關節。
+  <strong>台鐵的班次分配跟人口密度關係不大，跟路網結構關係比較大。</strong>
+</p>
+</div>
+</section>
+
+<details>
+  <summary>方法與限制</summary>
+  <div class="dbody">
+    <p>這篇文章的每一個數字都在 <span class="num">data.json</span> 有台帳，記錄了值、單位、資料日期、計算方法與產生它的查詢。以下是必須先說清楚的六件事：</p>
+    <ol>
+      <li><strong>誤點資料是沿途觀測，不是官方發車紀錄。</strong>來源是交通部 TDX 的 TrainLiveBoard 列車即時位置，每 2 分鐘輪詢一次。實際觀測到的班次約占班表的 <span class="num">84.7%</span>。</li>
+      <li><strong>列車快到終點時，TDX 常常就不再回報了。</strong>我們沒有真正的「到達終點站時間」，只有「最後一次被回報的位置與誤點」。</li>
+      <li><strong>統計期間不同。</strong>官方的 97.02% 是 2025 全年，本文自算的是 2026 年 7/24–8/22 的 30 天，不是嚴格可比。</li>
+      <li><strong>176 天中有 9 天沒有班表可對照</strong>（資料收集程式的排程漂移），這些日子的指標為空值，已從平均中排除。</li>
+      <li><strong>誤點軌跡有資料尖刺</strong>——偶爾出現「6 分 → 95 分 → 6 分」這種單點暴衝，所以統計一律用 p90 而非最大值。</li>
+      <li><strong>時刻表資料有 11 個站是壞的</strong>，涉及站級停靠次數的排名都已排除，名單在 data.json。</li>
+    </ol>
+    <p>周邊人口用村里人口做面積加權，假設村里內人口均勻分布，山區大面積村里會失真；且是戶籍人口不是日間人口。便利商店與人口的「周邊」半徑一律 1 公里，全系列一致才能跨篇比較。</p>
+  </div>
+</details>
+
+<footer>
+  <strong>資料來源</strong>
+  <ul>
+    <li>交通部 <a href="https://tdx.transportdata.tw/">TDX 運輸資料流通服務平臺</a>：車站、路線、每日時刻表、列車即時位置</li>
+    <li><a href="https://www.ey.gov.tw/state/A44E5E33CDA7E738/1f34ef94-2ff5-40ab-b526-e2fedd358a36">行政院國情簡介－臺鐵</a>：營業里程、車站數、電化里程（民國 113 年統計）</li>
+    <li><a href="https://tip.railway.gov.tw/tra-tip-web/adr/about-public-info-3-2">臺鐵準點率定義</a>／<a href="https://udn.com/news/story/7266/9313461">準點率 97.02% 民眾無感（聯合報）</a></li>
+    <li>內政部國土測繪中心 20 公尺數值地形模型（2024）、內政部戶政司村里人口統計（2023）</li>
+  </ul>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tip=document.getElementById('tip'), root=document.documentElement;
+
+  document.querySelectorAll('[data-tip]').forEach(function(el){
+    function show(e){
+      tip.textContent=el.getAttribute('data-tip').replace(/&lt;/g,'<');
+      tip.style.opacity='1';
+      var r=el.getBoundingClientRect(), x=(e&&e.clientX)||r.left+r.width/2, y=(e&&e.clientY)||r.top;
+      var w=tip.offsetWidth||200;
+      tip.style.left=Math.max(8,Math.min(window.innerWidth-w-8,x-w/2))+'px';
+      tip.style.top=Math.max(8,y-tip.offsetHeight-12)+'px';
+    }
+    function hide(){tip.style.opacity='0'}
+    el.addEventListener('mousemove',show);
+    el.addEventListener('mouseleave',hide);
+    el.addEventListener('focusin',show);
+    el.addEventListener('focusout',hide);
+  });
+
+  var btn=document.getElementById('tbtn');
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    if(!cur){
+      cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    }
+    root.setAttribute('data-theme', cur==='dark'?'light':'dark');
+  });
+})();
+</script>
+</body>
+</html>

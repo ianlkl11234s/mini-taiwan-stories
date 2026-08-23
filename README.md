@@ -30,8 +30,13 @@ articles/01-tra/
 ├── queries/*.sql   產生每個數字的可重跑查詢
 ├── figures/        圖表與地圖靜態圖
 ├── embeds.json     互動地圖的 /embed 網址 + 靜態圖 fallback
-└── inventory.md    資料盤點與品質警訊
+├── inventory.md    資料盤點與品質警訊
+└── preview.html    版面預覽（地圖是真的 iframe，本機直接開）
 ```
+
+`preview.html` 是自架網頁的雛形，不是最終產物 —— 它把 `article.md` 的重點排成一頁，
+用來確認「穿插地圖與圖表」的節奏對不對。要做成可分享的頁面時，把 iframe 換成
+`figures/` 的靜態圖 + 連結（多數平台會擋 iframe，Artifact 的 CSP 也會）。
 
 ### 為什麼要有 data.json
 
