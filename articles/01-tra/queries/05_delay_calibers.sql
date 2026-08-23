@@ -1,34 +1,60 @@
--- 05 誤點率三口徑（本篇核心）
+-- 05 誤點率四口徑（本篇核心）
 --
--- 口徑定義：
---   A. 沿途口徑 —— 該班次沿途任一觀測點誤點 >5 分即算誤點。最接近乘客體感。
---   B. 近終點口徑 —— 只看最後觀測落在終點前 3 站內的班次。最接近官方定義。
---   C. 官方口徑 —— 到達終點站延誤 ≤5 分為準點。台鐵公布 2025 年 97.02%。
---      來源：https://tip.railway.gov.tw/tra-tip-web/adr/about-public-info-3-2
+-- ⚠️ 門檻定義（已驗證，不要改）：
+--    資料庫的 delayed_over_5 = max_delay_min >= 5，不是 > 5。
+--    驗證方式：2026-08-18 summary.delayed_over_5=161 vs 明細 count(max_delay_min>=5)=161（>5 只有 121）；
+--             2026-08-19 同樣 155=155。
+--    所以【準點 = 誤點 < 5 分】。
 --
--- ⚠️ A/B 都是 TrainLiveBoard 沿途觀測，不是官方發車紀錄，覆蓋率約 85%。
--- ⚠️ 9 天缺班表 → observed_trains 為 0，用 nullif 排除。
+-- 四個口徑，A / A2 / B′ 共用同一分母（observed=true 的班次），B 是子集：
+--   A   沿途最大誤點 < 5 分        —— 乘客體感
+--   A2  沿途 p90 誤點 < 5 分       —— 同上但濾掉單點尖刺
+--   B′  最後一次觀測誤點 < 5 分     —— ⭐ 與 A 同分母，兩者差距 = 純口徑差（追回來的誤點）
+--   B   近終點子集的最後觀測 < 5 分  —— 分母不同，用來檢查「挑樣本」有沒有美化數字
+--   C   官方公布：到達終點站延誤 ≤5 分，2025 全年 97.02%
+--       https://tip.railway.gov.tw/tra-tip-web/adr/about-public-info-3-2
+--
+-- ⚠️ A/A2/B′/B 都是 TrainLiveBoard 沿途觀測，涵蓋率約 85%，不是官方發車紀錄。
+-- ⚠️ 只讀數值欄位，不碰 delay_trajectory（TOAST 分開存），所以不是重負載查詢。
 SELECT
-  count(*)                                                                          AS days,
-  round(avg(coverage_pct), 1)                                                       AS coverage_pct,
-  round(avg(100.0 * (observed_trains  - delayed_over_5)   / nullif(observed_trains, 0)),  2) AS ontime_enroute_pct,
-  round(avg(100.0 * (near_dest_trains - near_dest_over_5) / nullif(near_dest_trains, 0)), 2) AS ontime_near_dest_pct,
-  round(avg(p90_delay_min), 1)                                                      AS p90_delay_min,
-  round(avg(avg_delay_min), 1)                                                      AS avg_delay_min
-FROM analytics.tra_delay_summary_daily
-WHERE service_date >= :'from' AND service_date <= :'to';
+  count(*)                                                              AS observed_trains,
+  round(100.0 * count(*) FILTER (WHERE max_delay_min  < 5) / count(*), 2) AS ontime_a_enroute_max,
+  round(100.0 * count(*) FILTER (WHERE p90_delay_min  < 5) / count(*), 2) AS ontime_a2_enroute_p90,
+  round(100.0 * count(*) FILTER (WHERE last_delay_min < 5) / count(*), 2) AS ontime_bprime_last_obs,
+  count(*) FILTER (WHERE near_destination)                              AS near_dest_trains,
+  round(100.0 * count(*) FILTER (WHERE near_destination AND last_delay_min < 5)
+        / nullif(count(*) FILTER (WHERE near_destination), 0), 2)       AS ontime_b_near_dest
+FROM analytics.tra_train_delay_daily
+WHERE service_date BETWEEN :'from' AND :'to'
+  AND observed;
+
+-- 實際資料窗（寫進 data.json 的 as_of，不要自己回推）
+SELECT min(service_date) AS from_date, max(service_date) AS to_date, count(DISTINCT service_date) AS days
+FROM analytics.tra_train_delay_daily
+WHERE service_date BETWEEN :'from' AND :'to';
 
 -- 門檻敏感度（正文「把標準放寬到 10 分鐘會怎樣」用）
 SELECT
-  round(avg(100.0 * (observed_trains - delayed_over_0)  / nullif(observed_trains, 0)), 2) AS ontime_0min,
-  round(avg(100.0 * (observed_trains - delayed_over_5)  / nullif(observed_trains, 0)), 2) AS ontime_5min,
-  round(avg(100.0 * (observed_trains - delayed_over_10) / nullif(observed_trains, 0)), 2) AS ontime_10min,
-  round(avg(100.0 * (observed_trains - delayed_over_15) / nullif(observed_trains, 0)), 2) AS ontime_15min,
-  round(avg(100.0 * (observed_trains - delayed_over_30) / nullif(observed_trains, 0)), 2) AS ontime_30min
-FROM analytics.tra_delay_summary_daily
-WHERE service_date >= :'from' AND service_date <= :'to';
+  round(100.0 * count(*) FILTER (WHERE max_delay_min <  5) / count(*), 2) AS ontime_5min,
+  round(100.0 * count(*) FILTER (WHERE max_delay_min < 10) / count(*), 2) AS ontime_10min,
+  round(100.0 * count(*) FILTER (WHERE max_delay_min < 15) / count(*), 2) AS ontime_15min,
+  round(100.0 * count(*) FILTER (WHERE max_delay_min < 30) / count(*), 2) AS ontime_30min
+FROM analytics.tra_train_delay_daily
+WHERE service_date BETWEEN :'from' AND :'to' AND observed;
 
--- 逐日序列（畫趨勢圖 + 找異常日用）
+-- 逐日序列（畫趨勢圖 + 找異常日用；2026-08-22 準點率只有 64.65%，值得查當天發生什麼事）
 SELECT service_date, coverage_pct, observed_trains, delayed_over_5, p90_delay_min, max_delay_min
 FROM analytics.tra_delay_summary_daily
 ORDER BY service_date;
+
+-- 車種別（正文「哪種車最準時」用）
+SELECT train_type,
+       count(*) AS trains,
+       round(100.0 * count(*) FILTER (WHERE max_delay_min  < 5) / count(*), 2) AS ontime_a,
+       round(100.0 * count(*) FILTER (WHERE last_delay_min < 5) / count(*), 2) AS ontime_bprime,
+       round(avg(p90_delay_min)::numeric, 1) AS avg_p90_delay
+FROM analytics.tra_train_delay_daily
+WHERE service_date BETWEEN :'from' AND :'to' AND observed
+GROUP BY train_type
+HAVING count(*) >= 200
+ORDER BY ontime_a;
