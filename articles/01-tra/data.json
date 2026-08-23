@@ -396,18 +396,7 @@
       "method": "reference.daily_schedules(tra_daily) 的 data.schedules[].stations[] 逐日展開，平日/週末各取平均",
       "query": "queries/04_station_stops.sql",
       "data_file": "data/04_station_stops.csv",
-      "caveat": "⚠️ 資料只涵蓋 232 站（244 站中漏 12 站，見 inventory §三.1）。bottom 已排除 9 個已知漏抓站",
-      "excluded_from_bottom": [
-        "嘉北",
-        "太原",
-        "成功",
-        "新烏日",
-        "新馬",
-        "松竹",
-        "潭子",
-        "精武",
-        "頭家厝"
-      ],
+      "caveat": "⚠️ 資料只涵蓋 232 站，且台中線豐原—烏日高架化區間整段不可信：7 站被上游轉換器改寫成舊 station_id 而消失、栗林與烏日的數字被合併污染（栗林算出 112 但外部實際 102）。詳見 inventory §三.1",
       "top": [
         {
           "station": "板橋",
@@ -471,7 +460,28 @@
           "weekday": 13,
           "weekend": 13
         }
-      ]
+      ],
+      "excluded": {
+        "dropped_by_id_remap": [
+          "潭子",
+          "頭家厝",
+          "松竹",
+          "太原",
+          "精武",
+          "新烏日",
+          "成功"
+        ],
+        "polluted_by_merge": [
+          "栗林",
+          "烏日"
+        ],
+        "filtered_by_track_match": [
+          "嘉北"
+        ],
+        "missing_upstream": [
+          "新馬"
+        ]
+      }
     },
     "segment_delay": {
       "unit": "分/區間",
@@ -558,14 +568,89 @@
         "observations": 3304,
         "why": "樣本 3,304 次、距離 5.6 km（超過輪詢間隔可走完的距離）、且鄰接區間沒有對稱的追回現象"
       }
+    },
+    "pop_per_trip": {
+      "unit": "人/班",
+      "as_of": "人口 2023 ／ 班次 2026-08-16~22",
+      "method": "周邊 1km 戶籍人口 ÷ 平日每日停靠次數。只列停靠 >=20 班的站（避免祕境站的極小除數主導），並排除 11 個受時刻表轉換器影響的站",
+      "query": "queries/10_pop_per_trip.sql",
+      "data_file": "data/10_pop_per_trip.csv",
+      "stations_included": 199,
+      "caveat": "⚠️ 分子是戶籍人口不是實際使用者；轉乘站（如新左營、板橋）的服務對象遠超過周邊住戶",
+      "top": [
+        {
+          "station": "正義",
+          "pop_1km": 75188,
+          "weekday_stops": 93,
+          "pop_per_trip": 808.5
+        },
+        {
+          "station": "科工館",
+          "pop_1km": 70503,
+          "weekday_stops": 100,
+          "pop_per_trip": 705.0
+        },
+        {
+          "station": "民族",
+          "pop_1km": 65248,
+          "weekday_stops": 93,
+          "pop_per_trip": 701.6
+        },
+        {
+          "station": "內惟",
+          "pop_1km": 55863,
+          "weekday_stops": 94,
+          "pop_per_trip": 594.3
+        },
+        {
+          "station": "萬華",
+          "pop_1km": 102956,
+          "weekday_stops": 175,
+          "pop_per_trip": 588.3
+        },
+        {
+          "station": "大甲",
+          "pop_1km": 23483,
+          "weekday_stops": 41,
+          "pop_per_trip": 572.8
+        }
+      ],
+      "bottom": [
+        {
+          "station": "崇德",
+          "pop_1km": 49,
+          "weekday_stops": 22,
+          "pop_per_trip": 2.2
+        },
+        {
+          "station": "東澳",
+          "pop_1km": 52,
+          "weekday_stops": 32,
+          "pop_per_trip": 1.6
+        },
+        {
+          "station": "三貂嶺",
+          "pop_1km": 117,
+          "weekday_stops": 79,
+          "pop_per_trip": 1.5
+        },
+        {
+          "station": "和平",
+          "pop_1km": 21,
+          "weekday_stops": 35,
+          "pop_per_trip": 0.6
+        },
+        {
+          "station": "和仁",
+          "pop_1km": 16,
+          "weekday_stops": 25,
+          "pop_per_trip": 0.6
+        }
+      ]
     }
   },
   "pending": {
-    "pop_per_trip": {
-      "status": "ready",
-      "reason": "04 已跑完（整週），可組裝；記得排除 9 個已知漏抓站",
-      "query": "queries/10_pop_per_trip.sql"
-    }
+    "_note": "目前沒有被阻擋的統計；已知資料限制見 inventory.md §三"
   },
   "stats_derived": {
     "gap_caliber_pp": {
