@@ -54,7 +54,8 @@
       ],
       "as_of": "2026-06-24~2026-08-22（近 60 天平日）",
       "method": "reference.daily_schedules(tra_daily) 近 60 天平日 train_count 平均",
-      "query": "queries/03_daily_trains.sql"
+      "query": "queries/03_daily_trains.sql",
+      "caveat": "轉換後的數字。列車級損失很小：2026-08-19 上游 S3 原始歸檔 910 班、DB train_count 908 班（差 0.2%）。站級損失才嚴重，見 rankings.station_stops"
     },
     "daily_trains_weekend": {
       "value": 916,
@@ -62,7 +63,8 @@
       "as_of": "2026-06-24~2026-08-22（近 60 天週末）",
       "method": "同上，週六日",
       "query": "queries/03_daily_trains.sql",
-      "note": "週末反而比平日多（加班車）"
+      "note": "週末反而比平日多（加班車）",
+      "caveat": "轉換後的數字。列車級損失很小：2026-08-19 上游 S3 原始歸檔 910 班、DB train_count 908 班（差 0.2%）。站級損失才嚴重，見 rankings.station_stops"
     },
     "delay_observed_trains": {
       "value": 23263,
@@ -481,6 +483,13 @@
         "missing_upstream": [
           "新馬"
         ]
+      },
+      "daily_total_stops": {
+        "value": 19869,
+        "unit": "次/日",
+        "as_of": "2026-08-19",
+        "method": "單日展開 data.schedules[].stations[] 的元素總數",
+        "caveat": "⚠️ 略為低估——11 個受影響站的停靠沒被記到或被去重吃掉（光潭子一站外部實際就有 114 班）"
       }
     },
     "segment_delay": {
