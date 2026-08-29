@@ -55,9 +55,18 @@ articles/01-tra/
 
 ## 關聯
 
-| repo | 用途 |
+本 repo 只放文字與台帳，**資料與地圖全部來自別的專案**。
+逐項的檔案路徑與各表的坑見 [`CLAUDE.md`](./CLAUDE.md) 的路由表。
+
+| repo | 提供什麼 |
 |---|---|
-| `../mini-taiwan-pulse` | 地圖 `/embed`、誤點與時刻表資料 |
-| `../mini-taiwan-info` | 縣市統計、運量 |
-| `../terrain-art` | 車站高程（NLSC 20m DTM） |
-| `../taiwan-md` | 未來可能的併入目標（Astro，CC BY-SA 4.0） |
+| `../mini-taiwan-pulse` | 地圖 `/embed`、誤點與時刻表資料、站點與路線幾何 |
+| `../mini-taiwan-info` | 縣市統計、各站運量 |
+| `../terrain-art` | 車站高程（內政部 NLSC 20m DTM 2024） |
+| `../data-collectors` | 上游 collector 與時刻表轉換器、S3 歷史歸檔 |
+| `../taipei-gis-analytics` | 跨 repo 契約／ADR 的 SSOT、開放資料目錄搜尋 |
+| `../gis-platform` | Supabase schema 與 migration |
+| `../tra-art-map`、`../mini-taipei-v3` | 現成的站表與班次統計邏輯 |
+| `../taiwan-md` | 寫作品質標準（EDITORIAL.md）＋未來可能的併入目標（Astro，CC BY-SA 4.0） |
+
+資料本身在 Supabase（gis-platform），連線用 `../mini-taiwan-pulse/.env` 的 `SUPABASE_DB_URL`，**唯讀**。
