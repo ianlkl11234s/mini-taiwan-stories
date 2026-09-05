@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mini Taiwan Story"
+  short_description: "把地圖現象做成可查證的資料故事"
+  default_prompt: "Use $mini-taiwan-story to continue this map-led article from its first incomplete workbook gate."

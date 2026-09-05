@@ -4,10 +4,13 @@
 
 ## 動筆前必做
 
-1. **讀 [`../taiwan-md/EDITORIAL.md`](../taiwan-md/EDITORIAL.md)** —— 寫作品質標準沿用它
-   （反直覺核心句 / 三層結構 / 每個事實可查證 / 密度優先）
-2. **讀該篇的 `inventory.md`** —— 資料盤點與品質警訊，避免用到已知有問題的數字
-3. 找資料先查 `../taipei-gis-analytics` 的 catalog，不要直接爬網站
+1. **讀 [`skills/mini-taiwan-story/SKILL.md`](skills/mini-taiwan-story/SKILL.md)**，依共用 workflow 從該篇第一個未完成 gate 繼續
+2. **確認該篇有 `workbook.md`**；新題先登記 [`TOPIC_BANK.md`](TOPIC_BANK.md)，再複製 skill 內的 workbook template
+3. **讀 [`docs/editorial/ARTICLE_GUIDELINES.md`](docs/editorial/ARTICLE_GUIDELINES.md)** —— 這是已對齊 Taiwan.md 並納入 GIS 證據規則的本專案寫作 SSOT
+4. **讀該篇的 `inventory.md`**（已有時）—— 資料盤點與品質警訊，避免用到已知有問題的數字
+5. 找資料先查 `../taipei-gis-analytics` 的 catalog，不要直接爬網站
+
+地圖取景與全文大綱是兩個共同確認 gate。沒有使用者先前確認時，研究可以繼續，但不要越過 gate 產出全文。
 
 ## 鐵則
 
@@ -98,7 +101,8 @@
 
 | 要什麼 | 去哪裡 |
 |---|---|
-| 寫作品質標準 | `../taiwan-md/EDITORIAL.md` |
+| 寫作品質標準 | `docs/editorial/ARTICLE_GUIDELINES.md`（本專案 SSOT） |
+| 上游寫作規範 | `https://github.com/frank890417/taiwan-md/tree/main/docs`（只在刷新本地準則時查閱） |
 | frontmatter schema | `../taiwan-md/src/content.config.ts`（zod，未知欄位會被 strip，可安全擴充） |
 
 ## 已知的坑（跨 repo，踩過的）

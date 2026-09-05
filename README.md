@@ -25,6 +25,7 @@
 
 ```
 articles/01-tra/
+├── workbook.md     ⭐ 每篇必做的階段、確認、複核與評分紀錄
 ├── article.md      正文（Markdown，frontmatter 相容 taiwan.md）
 ├── data.json       ⭐ 數據台帳 —— 正文每個數字都在這裡有一筆
 ├── queries/*.sql   產生每個數字的可重跑查詢
@@ -33,6 +34,12 @@ articles/01-tra/
 ├── inventory.md    資料盤點與品質警訊
 └── preview.html    版面預覽（地圖是真的 iframe，本機直接開）
 ```
+
+共用流程在 [`skills/mini-taiwan-story/SKILL.md`](skills/mini-taiwan-story/SKILL.md)，新文章從
+[`article-workbook.md`](skills/mini-taiwan-story/assets/article-workbook.md) 複製一份 `workbook.md`。
+尚未形成文章的截圖與現象先記進 [`TOPIC_BANK.md`](TOPIC_BANK.md)。
+文體、研究門檻、footnote-first 與發布前檢查，統一使用
+[`docs/editorial/ARTICLE_GUIDELINES.md`](docs/editorial/ARTICLE_GUIDELINES.md)。
 
 `preview.html` 是自架網頁的雛形，不是最終產物 —— 它把 `article.md` 的重點排成一頁，
 用來確認「穿插地圖與圖表」的節奏對不對。要做成可分享的頁面時，把 iframe 換成
@@ -51,7 +58,8 @@ articles/01-tra/
 2. **口徑先寫清楚再寫數字** —— 尤其誤點率，官方口徑與體感口徑差 20 個百分點
 3. **資料有缺口就明講**，不用推估值填坑（承襲 mini-taiwan-info 鐵則 1）
 4. **官方數字優先於自算數字**，自算只用在官方沒有的維度
-5. 寫作品質標準沿用 [`taiwan-md/EDITORIAL.md`](../taiwan-md/EDITORIAL.md)：先找到反直覺核心句，再動筆
+5. 寫作品質標準沿用 Taiwan.md，並已整合為本專案的
+   [`ARTICLE_GUIDELINES.md`](docs/editorial/ARTICLE_GUIDELINES.md)：先找到反直覺核心句，再動筆
 
 ## 關聯
 
@@ -67,6 +75,6 @@ articles/01-tra/
 | `../taipei-gis-analytics` | 跨 repo 契約／ADR 的 SSOT、開放資料目錄搜尋 |
 | `../gis-platform` | Supabase schema 與 migration |
 | `../tra-art-map`、`../mini-taipei-v3` | 現成的站表與班次統計邏輯 |
-| `../taiwan-md` | 寫作品質標準（EDITORIAL.md）＋未來可能的併入目標（Astro，CC BY-SA 4.0） |
+| `../taiwan-md` | 上游寫作準則的更新來源＋未來可能的併入目標（Astro，CC BY-SA 4.0） |
 
 資料本身在 Supabase（gis-platform），連線用 `../mini-taiwan-pulse/.env` 的 `SUPABASE_DB_URL`，**唯讀**。
