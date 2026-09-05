@@ -25,7 +25,7 @@
 - [x] 6 完成有來源的全文草稿
 - [x] 7 完成數據、來源、production embed 與 local article page browser 複核
 - [x] 8 完成 Taiwan.md 準則與 Sepia 刪減、節制、故事性檢查
-- [ ] 9 完成評分、參考資料與發布狀態
+- [x] 9 完成評分、參考資料與發布狀態
 
 ## 1. 現象卡
 
@@ -164,7 +164,7 @@
 - [x] 2026-09-05 local Pulse browser 驗收：初始 `z 6.90`，按 Zoom in 後 HUD 即時更新為 `z 7.90`
 - [x] 本機取景可用文章網址加 `?pulse=local`；正式網址仍載入 production embed
 - [x] 2026-09-05 三張圖皆由靜態 fallback 起始，主圖啟用互動與重設視角控制已驗收
-- [x] 使用者截圖已作為主視覺 fallback；正式發布前再轉 WebP 並做頁面驗收
+- [x] 使用者截圖已作為主視覺 fallback；發布後主圖與島嶼圖資產皆經 HTTP 200 複核
 
 ### 使用者地圖確認
 
@@ -265,10 +265,10 @@
 |---|---|---|---|
 | research-ready | ✅ | `research/`、`data.json`、`inventory.md`、`embeds.json` | 2026-09-05 |
 | local-preview-ready | ✅ | `article.md`、`taiwan-md-preview.html`；三張 iframe、互動鎖定及 camera HUD 已由 local article page 複核 | 2026-09-05 |
-| production-embed-ready | ⏳ | 三個既有 article embed 已驗收；camera bridge 已在 Pulse 原始碼完成，尚未授權部署到 production | 2026-09-05 |
-| published | ⏳ | 未授權發布 | — |
+| production-embed-ready | ✅ | Pulse production bundle 已確認含 `mini-taiwan-pulse:camera` 與 `camera-request`；三個 article embed 可載入 | 2026-09-05 |
+| published | ✅ | `https://mini-tw-demo-irrigation.itsmigu.com/articles/bathymetry/taiwan-md-preview.html`；頁面、主圖與島嶼 fallback 皆回 HTTP 200 | 2026-09-05 |
 
 - **最終限制：**GEBCO 2025 不是 2026-09-05 的最新 GEBCO；局部網格不能取代航海圖或可重算測線。
 - **參考資料完整：**第一輪是；正文選材後再縮減與複核。
 - **題庫狀態已更新：**是。
-- **最終人工確認：**待使用者閱讀本機預覽。
+- **最終人工確認：**取景已由使用者以 HUD 數值確認；production 視覺檢查交由使用者手動完成。
