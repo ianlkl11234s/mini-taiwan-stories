@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="從七萬公里的管理規模，讀懂台灣灌溉、排水與地方水網。">
+<title>七萬公里的水路｜Mini Taiwan Stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@600;700;900&amp;display=swap">
+<style>
+:root{
+  --paper:#f5f4ee;--card:#fffdfa;--ink:#202a24;--body:#39453e;--muted:#6f7b73;--rule:#dfe3dc;
+  --green:#276b50;--green-dark:#143c2c;--mint:#d7e8dc;--mint-2:#eef5ef;--amber:#9a6227;
+  --field:#58a65d;--canal:#30b9b0;--river:#3c9bc0;--contour:#b56a2d;
+  --serif:"Noto Serif TC",serif;--sans:"Noto Sans TC",sans-serif;--mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--body);font:18px/2 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--green);text-underline-offset:4px}
+button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:3px solid #58a98b;outline-offset:3px}
+.progress{position:fixed;z-index:50;left:0;top:0;width:100%;height:3px;background:transparent}
+.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--green),var(--canal))}
+.site-header{height:68px;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--rule);display:flex;align-items:center;padding:0 max(24px,calc((100vw - 1480px)/2));gap:24px;position:sticky;top:0;z-index:70}
+.brand{font:700 18px/1 var(--serif);color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.brand small{font:500 9px/1 var(--mono);letter-spacing:.12em;color:var(--green);margin-left:7px}
+.site-nav{display:flex;gap:25px;margin-left:auto;font-size:.78rem}
+.site-nav a{color:var(--muted);text-decoration:none}
+.site-nav a:hover{color:var(--green)}
+.article-picker{position:relative;display:flex;align-items:center;gap:10px}.article-picker span{color:var(--muted);font:600 9px/1 var(--mono);letter-spacing:.1em}.article-picker select{appearance:none;min-width:230px;border:1px solid #cfd9d1;border-radius:999px;background:#f7faf7;color:var(--green-dark);padding:10px 38px 10px 15px;font:600 11px/1.2 var(--sans);cursor:pointer}.article-picker::after{content:"↓";position:absolute;right:14px;color:var(--green);pointer-events:none}.article-picker select:hover{border-color:#79a78d}
+.hero{background:
+  radial-gradient(circle at 78% 15%,rgba(39,107,80,.13),transparent 25rem),
+  linear-gradient(145deg,#edf5ef 0%,#dcecdf 58%,#f5f4ee 100%);border-bottom:1px solid #cfddd2}
+.hero-inner{max-width:1120px;margin:auto;padding:72px 36px 82px;position:relative}
+.hero-inner::after{content:"";position:absolute;right:5%;bottom:0;width:34%;height:75%;opacity:.16;background:repeating-radial-gradient(ellipse at 100% 100%,transparent 0 12px,var(--green) 13px 14px);mask-image:linear-gradient(to top,#000,transparent)}
+.crumbs{position:relative;z-index:1;font-size:.72rem;color:var(--muted);margin-bottom:30px}.crumbs a{text-decoration:none}
+.category{display:inline-block;font:600 10px/1 var(--mono);letter-spacing:.15em;color:var(--green);text-transform:uppercase;margin-bottom:18px}
+h1,h2,.summary{font-family:var(--serif);color:var(--ink);text-wrap:balance}
+h1{position:relative;z-index:1;max-width:850px;font-size:clamp(2.8rem,6.6vw,5.6rem);line-height:1.12;letter-spacing:-.055em;margin:0 0 24px;font-weight:900}
+.dek{position:relative;z-index:1;max-width:760px;margin:0;color:#516159;font:600 clamp(1.05rem,2vw,1.28rem)/1.8 var(--serif)}
+.meta{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:30px;font-size:.72rem;color:var(--muted)}
+.meta .draft{color:var(--amber);font-weight:600}
+.reading-shell{max-width:1500px;margin:58px auto 110px;padding:0 24px;display:grid;grid-template-columns:210px minmax(0,920px) 220px;gap:44px;align-items:start;justify-content:center}
+.toc{position:sticky;top:96px;margin:0;padding:20px 10px 20px 0;border-top:1px solid var(--rule);background:transparent}
+.toc b{display:block;color:var(--green);font:600 10px/1 var(--mono);letter-spacing:.14em;margin-bottom:12px;text-transform:uppercase}
+.toc ol{display:grid;gap:4px;margin:0;padding:0;list-style:none;font-size:.75rem;line-height:1.65}.toc li{border-bottom:1px solid var(--rule)}.toc a{display:block;padding:10px 4px;color:var(--body);text-decoration:none}.toc a:hover{color:var(--green)}
+.article{background:var(--card);border:1px solid var(--rule);border-radius:22px;box-shadow:0 24px 80px rgba(31,54,41,.08);padding:70px clamp(24px,7vw,92px)}
+.prose{max-width:750px;margin-inline:auto}
+.notice{margin:0 auto 36px;padding:16px 19px;border-left:4px solid #c38746;background:#faf3e9;color:#74512d;font-size:.8rem;line-height:1.7}
+.summary{margin:0 auto 58px;padding:27px 29px;background:var(--mint-2);border:1px solid #d1e2d5;border-radius:11px;font-size:1.08rem;line-height:1.8}
+.summary b{color:var(--green)}
+.lead{font-family:var(--serif);font-weight:600;font-size:1.16rem;color:var(--ink)}
+.scale-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;margin:34px 0 18px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:#fff}
+.scale-grid div{padding:22px 20px}.scale-grid div+div{border-left:1px solid var(--rule)}
+.scale-grid strong{display:block;color:var(--green-dark);font:700 clamp(1.25rem,2.6vw,1.75rem)/1.2 var(--serif);letter-spacing:-.04em}
+.scale-grid span{display:block;margin-top:8px;color:var(--muted);font-size:.68rem;line-height:1.5}
+.scale-note{font-size:.76rem;color:var(--muted);line-height:1.7}
+.flow{margin:30px 0 24px;padding:24px;border:1px solid #cfe0d3;background:var(--mint-2);border-radius:10px}
+.flow-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px;color:var(--green-dark);font:600 .79rem/1.5 var(--mono)}
+.flow-row+.flow-row{margin-top:14px;padding-top:14px;border-top:1px solid #d4e3d7}
+.flow-row b{min-width:62px;font-family:var(--sans);color:var(--ink)}.flow-row i{font-style:normal;color:var(--green)}
+h2{font-size:clamp(1.7rem,3.2vw,2.45rem);line-height:1.35;letter-spacing:-.035em;margin:82px 0 25px;padding-bottom:15px;border-bottom:1px solid var(--rule);scroll-margin-top:30px}
+h2 .no{display:block;color:var(--green);font:600 10px/1 var(--mono);letter-spacing:.15em;margin-bottom:13px}
+p{margin:0 0 1.65em}
+.pull{margin:70px auto;padding:42px 5%;border-block:1px solid var(--rule);font:700 clamp(1.55rem,3vw,2.25rem)/1.65 var(--serif);text-align:center;color:var(--green-dark)}
+.map-block{max-width:960px;margin:38px auto 50px}
+.map-card{border:1px solid #2b342e;background:#0b100d;box-shadow:0 20px 50px rgba(26,40,31,.16);overflow:hidden;border-radius:9px}
+.map-top{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#101611;color:#aab3ac;border-bottom:1px solid rgba(255,255,255,.12);font:500 10px/1 var(--mono);letter-spacing:.06em}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--field);box-shadow:0 0 10px var(--field)}
+.grow{flex:1}.map-controls{display:flex;flex:none;border:1px solid rgba(255,255,255,.14)}
+.map-controls button{border:0;background:transparent;color:#d4dcd5;font:500 10px/1 var(--mono);padding:8px 11px;cursor:pointer;white-space:nowrap}
+.map-controls button+button{border-left:1px solid rgba(255,255,255,.14)}
+.map-controls button:hover{background:rgba(255,255,255,.07);color:#fff}
+.map-controls [data-map-action="toggle"][aria-pressed="false"]{background:#edf2e8;color:#111812}
+.map-controls button[hidden]{display:none}
+.viewport{position:relative;aspect-ratio:16/10;min-height:430px;background:#121813;overflow:hidden}
+.viewport iframe{display:block;position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.viewport[data-active="true"] iframe{pointer-events:auto}
+.map-caption{display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 18px;background:#101611;color:#aeb8b0;font-size:.7rem;line-height:1.6}.map-caption a{color:#65d4c8;text-decoration:none;white-space:nowrap}
+.evidence{display:grid;grid-template-columns:1fr 1fr;margin-top:15px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:#fff}
+.evidence div{padding:17px 19px}.evidence div+div{border-left:1px solid var(--rule)}
+.evidence b{display:block;font:600 9px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px}.seen b{color:var(--green)}.prove b{color:var(--amber)}
+.evidence p{margin:0;color:var(--muted);font-size:.72rem;line-height:1.7}
+.curator{margin:36px 0;padding:23px 25px;border-left:4px solid var(--green);background:var(--mint-2);font-size:.87rem}.curator b{display:block;color:var(--green);font-size:.76rem;margin-bottom:7px}
+.limits{margin-top:36px}.limits h3{font-family:var(--serif);color:var(--ink);font-size:1.08rem;margin:30px 0 9px;padding-left:14px;border-left:4px solid var(--mint)}
+.limits p{font-size:.9rem;color:#536159}
+.sources{font-size:.83rem;line-height:1.75}.sources li{margin-bottom:9px}
+.article-footer{max-width:750px;margin:54px auto 0;padding-top:24px;border-top:1px solid var(--rule);font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+.article-rail{position:sticky;top:96px;color:var(--muted);font-size:.75rem}.rail-group{padding:18px 0 24px;border-top:1px solid var(--rule)}.rail-label{display:block;margin-bottom:14px;color:var(--green);font:600 9px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase}.rail-meta{display:grid;gap:11px}.rail-meta span{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}.rail-meta i{font-style:normal;color:var(--green)}.rail-links{display:grid;gap:9px}.rail-links a{display:block;padding:11px 12px;border:1px solid var(--rule);border-radius:8px;background:rgba(255,255,255,.45);color:var(--body);text-decoration:none;line-height:1.45}.rail-links a:hover{border-color:#79a78d;background:#fff}.rail-links a[aria-current="page"]{border-color:var(--green);color:var(--green);background:var(--mint-2)}
+.site-footer{max-width:1500px;margin:auto;padding:0 24px 60px;color:var(--muted);font-size:.7rem;display:flex;justify-content:space-between}
+@media(max-width:1200px){.site-nav{display:none}.reading-shell{grid-template-columns:190px minmax(0,920px);gap:34px}.article-rail{display:none}}
+@media(max-width:900px){.reading-shell{grid-template-columns:1fr;max-width:960px}.toc{position:static;margin:0 8px 4px;padding:20px 24px;border:1px solid var(--rule);border-radius:13px;background:rgba(255,255,255,.52)}.toc ol{grid-template-columns:1fr 1fr;gap:2px 22px}.toc li{border:0}}
+@media(max-width:720px){
+  body{font-size:16px}.site-header{height:auto;min-height:58px;padding:9px 16px}.site-nav,.article-picker span{display:none}.article-picker{margin-left:auto;min-width:0}.article-picker select{min-width:0;width:52vw;padding-block:9px}.hero-inner{padding:48px 20px 55px}.hero-inner::after{display:none}
+  .reading-shell{padding:0 12px;margin-top:26px}.toc{margin-inline:8px}.toc ol{grid-template-columns:1fr}.article{border-radius:14px;padding:40px 20px}
+  h2{margin-top:64px}.map-block{margin-inline:-20px}.map-card{border-radius:0;border-inline:0}.viewport{aspect-ratio:4/5;min-height:520px}
+  .map-caption,.evidence,.scale-grid{grid-template-columns:1fr}.evidence div+div,.scale-grid div+div{border-left:0;border-top:1px solid var(--rule)}.article-footer,.site-footer{flex-direction:column}.map-top .location{min-width:0;max-width:30vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i></i></div>
+<header class="site-header"><a class="brand" href="#top">Mini Taiwan Stories<small>.MD</small></a><nav class="site-nav" aria-label="主要導覽"><a href="#scale">規模</a><a href="#system">原理</a><a href="#fan">地方系統</a><a href="#limits">資料範圍</a></nav><label class="article-picker"><span>選擇文章</span><select data-article-picker aria-label="選擇文章"><option value="/articles/demo-irrigation/taiwan-md-preview.html" selected>七萬公里的水路</option><option value="/articles/bathymetry/taiwan-md-preview.html">台灣貼著深海的一側</option></select></label></header>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="#top">首頁</a>  /  地理  /  水利地景</div>
+    <span class="category">Geography · Data story</span>
+    <h1>七萬公里的水路：<br>台灣平原如何被灌溉與排水寫出來</h1>
+    <p class="dek">地圖上的細線看起來像一張網，實際上是兩套方向相反的系統。順著它們走，平原才顯出工程、制度與地方歷史。</p>
+    <div class="meta"><span>10 分鐘閱讀</span><span>2026 年 9 月 5 日</span><span>地理 · 資料故事</span></div>
+  </div>
+</header>
+
+<main class="reading-shell">
+  <nav class="toc" aria-label="文章目錄"><b>目錄</b><ol><li><a href="#scale">全台規模</a></li><li><a href="#system">灌排原理</a></li><li><a href="#fan">濁水溪兩岸</a></li><li><a href="#terrain">八卦台地</a></li><li><a href="#yilan">宜蘭密網</a></li><li><a href="#valley">花東縱谷</a></li><li><a href="#limits">資料範圍</a></li><li><a href="#sources">參考資料</a></li></ol></nav>
+  <article class="article">
+    <div class="prose">
+      <section class="summary" id="overview"><b>30 秒概覽：</b>台灣列入管理清冊的灌排渠道將近七萬公里。灌溉把水逐級分到田邊，排水把餘水逐級收回大排；同一套原理到了濁水溪、宜蘭與花東縱谷，又長成不同的地方水網。</section>
+      <p class="lead">把農田圖層打開，平原是一片綠。再疊上河川、等高線與灌排渠道，綠色才被切成無數細格。</p>
+      <p>這些線看起來像同一張網，實際上做著兩件方向相反的事。理解這個差別之後，平原不再只是「很平的地方」，而是一套被取水、分水、輪灌與排水反覆改寫的基礎設施。</p>
+
+      <h2 id="scale"><span class="no">全台尺度</span>要先說清楚在數什麼</h2>
+      <p>農業部最新可得的完整年報顯示，2025 年由 17 個管理處統計的灌排渠道合計 68,465 公里。這是管理清冊口徑下的全台規模，也是「約七萬公里」較精確的版本。</p>
+      <div class="scale-grid" aria-label="官方灌排渠道規模"><div><strong>68,465 km</strong><span>官方灌排渠道合計</span></div><div><strong>44,319 km</strong><span>其中灌溉渠道</span></div><div><strong>24,145 km</strong><span>其中排水路</span></div></div>
+      <p>Mini Taiwan Pulse 現有渠道幾何重新投影後逐段加總，得到 21,560 公里、29,469 段線，約是年報總長的 32%。這道落差無法用來判定政府多算，也不能當成固定的圖資缺漏率；兩邊原本就不是同一份母體。</p>
+      <p class="scale-note">年報統計管理清冊；地圖使用已公告 WFS，再把宜蘭換成另一份較細的 ArcGIS 資料。年份、範圍與切段方式都不同，因此數字不能互換。</p>
+
+      <h2 id="system"><span class="no">閱讀原理</span>一套系統，兩個相反方向</h2>
+      <p>典型灌溉路徑從水源進入導水路，再經幹線、支線、分線與給水路抵達田間。排水則把田間餘水與降雨逕流收進小排，逐級匯成中排、大排，最後接到河川或海洋。</p>
+      <div class="flow" aria-label="灌溉與排水方向"><div class="flow-row"><b>灌溉</b><span>水源</span><i>→</i><span>幹線</span><i>→</i><span>支線</span><i>→</i><span>分線</span><i>→</i><span>田間</span></div><div class="flow-row"><b>排水</b><span>田間</span><i>→</i><span>小排</span><i>→</i><span>中排</span><i>→</i><span>大排</span><i>→</i><span>河川／海洋</span></div></div>
+      <p>閘門一開，水也不會同時流向所有田。管理端會依作物、時間與可用水量安排順序，輪灌就是其中一種做法。系統也可能混用水庫、河川攔河堰、埤塘、抽水與地下水。</p>
+      <p>重力只是工程條件之一。現有圖層未含取水口、渠道縱斷面與工程設計，無法判定單一渠道是否為重力輸水。</p>
+
+      <h2 id="fan"><span class="no">濁水溪扇面</span>看起來相連，其實分屬不同系統</h2>
+      <p>濁水溪穿出山地後，橘色等高線向西鬆開，田區與水路在彰化、雲林的低地鋪展。河流橫過畫面，兩岸渠道看似接成同一張網，背後卻有不同的工程史與管理範圍。</p>
+    </div>
+    <figure class="map-block" data-map>
+      <div class="map-card"><div class="map-top"><i class="dot"></i><span class="location">濁水溪扇面 · 彰化—雲林</span><span class="grow"></span><div class="map-controls" aria-label="地圖互動控制"><button type="button" data-map-action="reset" hidden>重設視角</button><button type="button" data-map-action="toggle" aria-pressed="false">啟用互動</button></div></div><div class="viewport" data-active="false"><iframe loading="lazy" tabindex="-1" title="濁水溪扇面互動地圖" src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.5071&amp;lat=23.8177&amp;z=10.3&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5" data-src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.5071&amp;lat=23.8177&amp;z=10.3&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5"></iframe></div><figcaption class="map-caption"><span>先沿著橘色等高線找地形轉折，再看田區與渠道從哪裡開始集中。</span><a href="https://mini-taiwan-pulse.itsmigu.com/?v=1&amp;lng=120.5071&amp;lat=23.8177&amp;z=10.3&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;style=black" target="_blank" rel="noreferrer">在 Pulse 開啟 ↗</a></figcaption></div>
+      <div class="evidence"><div class="seen"><b>兩岸系統</b><p>北側八堡圳與南側濁幹線屬不同現行管理脈絡；濁幹線在歷史工程上曾是嘉南大圳的一部分。</p></div><div class="prove"><b>尚未能判定</b><p>現有圖層無法逐線確認所屬圳系、實際取水口與水流方向。</p></div></div>
+    </figure>
+    <div class="prose">
+      <p>北側的彰化平原，主要古圳脈絡之一是八堡圳。南側則有雲林管理處的濁幹線。濁幹線在 1924 年開始供水，歷史工程上是嘉南大圳的一部分；但現行嘉南管理處從北港溪以南才開始。把濁水溪以南整片都叫作「嘉南大圳」，會把工程史與今天的管理邊界疊成同一件事。</p>
+      <aside class="curator"><b>兩岸不同</b>河川兩側分屬不同灌區與管理歷史，不能合併成一套巨型樹狀水網。</aside>
+
+      <h2 id="terrain"><span class="no">八卦台地邊緣</span>空白比最亮的線更有意思</h2>
+      <p>鏡頭移到員林與南投之間，密集等高線在農田與渠道網中切出一塊清楚的負空間。線條在這裡退開，到了西側低地又鋪展出去。</p>
+    </div>
+    <figure class="map-block" data-map>
+      <div class="map-card"><div class="map-top"><i class="dot"></i><span class="location">八卦台地邊緣 · 員林—南投</span><span class="grow"></span><div class="map-controls" aria-label="地圖互動控制"><button type="button" data-map-action="reset" hidden>重設視角</button><button type="button" data-map-action="toggle" aria-pressed="false">啟用互動</button></div></div><div class="viewport" data-active="false"><iframe loading="lazy" tabindex="-1" title="八卦台地邊緣互動地圖" src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.645&amp;lat=23.9139&amp;z=11.5&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5" data-src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=120.645&amp;lat=23.9139&amp;z=11.5&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5"></iframe></div><figcaption class="map-caption"><span>先看水網缺席的地方；負空間往往比最亮的線更能顯出地形邊界。</span><a href="https://mini-taiwan-pulse.itsmigu.com/?v=1&amp;lng=120.645&amp;lat=23.9139&amp;z=11.5&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;style=black" target="_blank" rel="noreferrer">在 Pulse 開啟 ↗</a></figcaption></div>
+      <div class="evidence"><div class="seen"><b>地形線索</b><p>等高線密集區形成田區與渠道的負空間，低地兩側紋理不同。</p></div><div class="prove"><b>尚未能判定</b><p>渠道是否順坡、是否有穿越台地的設施，以及各線的工程層級。</p></div></div>
+    </figure>
+    <div class="prose">
+      <p>這片空白顯出地形對農田與渠道分布的限制。現有資料缺少渠道縱斷面、取水口與工程設計，因此無法判定每條渠道是否順坡，也無法把某次轉向直接歸因於台地。</p>
+
+      <h2 id="yilan"><span class="no">宜蘭平原</span>這張密網不能只讀成灌溉</h2>
+      <p>宜蘭三面環山，河川向東入海，平原東側低平。農田水利署宜蘭管理處列出的系統，包括 150 條取水幹線、54 條排水幹線與 71 條區域排水。這些不是同一功能的線，而是取水與排水共同構成的地方秩序。</p>
+    </div>
+    <figure class="map-block" data-map>
+      <div class="map-card"><div class="map-top"><i class="dot"></i><span class="location">宜蘭平原 · 蘭陽溪兩側</span><span class="grow"></span><div class="map-controls" aria-label="地圖互動控制"><button type="button" data-map-action="reset" hidden>重設視角</button><button type="button" data-map-action="toggle" aria-pressed="false">啟用互動</button></div></div><div class="viewport" data-active="false"><iframe loading="lazy" tabindex="-1" title="宜蘭平原互動地圖" src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=121.7394&amp;lat=24.7248&amp;z=11.8&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5" data-src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=121.7394&amp;lat=24.7248&amp;z=11.8&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5"></iframe></div><figcaption class="map-caption"><span>宜蘭渠道採用較細的獨立幾何，因此不與其他地區比較密度。</span><a href="https://mini-taiwan-pulse.itsmigu.com/?v=1&amp;lng=121.7394&amp;lat=24.7248&amp;z=11.8&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;style=black" target="_blank" rel="noreferrer">在 Pulse 開啟 ↗</a></figcaption></div>
+      <div class="evidence"><div class="seen"><b>地方系統</b><p>地方管理同時列取水幹線、排水幹線與區域排水，灌溉和排水共同構成這張密網。</p></div><div class="prove"><b>資料範圍</b><p>宜蘭使用較細的獨立來源；名稱與引灌需求欄位目前為空，不能逐線判定功能。</p></div></div>
+    </figure>
+    <div class="prose">
+      <p>Pulse 在宜蘭使用獨立的高精度 ArcGIS 資料，共 9,918 段、4,376 公里；其他區域主要使用全國 WFS。宜蘭的線條較密，部分來自測繪粒度，現有資料無法支持跨區密度比較。</p>
+
+      <h2 id="valley"><span class="no">花東縱谷</span>水網被壓成許多在地答案</h2>
+      <p>池上到富里的田區被兩側山地壓在狹長谷底。農田、聚落與渠道都沿縱谷拉長，畫面很容易被讀成一條總幹線向南延伸。</p>
+    </div>
+    <figure class="map-block" data-map>
+      <div class="map-card"><div class="map-top"><i class="dot"></i><span class="location">花東縱谷 · 池上—富里</span><span class="grow"></span><div class="map-controls" aria-label="地圖互動控制"><button type="button" data-map-action="reset" hidden>重設視角</button><button type="button" data-map-action="toggle" aria-pressed="false">啟用互動</button></div></div><div class="viewport" data-active="false"><iframe loading="lazy" tabindex="-1" title="池上富里縱谷互動地圖" src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=121.2172&amp;lat=23.1077&amp;z=12.1&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5" data-src="https://mini-taiwan-pulse.itsmigu.com/embed?v=1&amp;lng=121.2172&amp;lat=23.1077&amp;z=12.1&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;theme=dark&amp;p.waterCanalWidth=1.35&amp;p.contourDtm20Opacity=0.5&amp;p.waterRiverOpacity=0.5"></iframe></div><figcaption class="map-caption"><span>水、田與聚落集中在兩側山地之間，沿谷地拉出狹長紋理。</span><a href="https://mini-taiwan-pulse.itsmigu.com/?v=1&amp;lng=121.2172&amp;lat=23.1077&amp;z=12.1&amp;layers=agriculture,waterCanals,waterRivers,waterLevees,waterReservoirs,contourDtm20&amp;style=black" target="_blank" rel="noreferrer">在 Pulse 開啟 ↗</a></figcaption></div>
+      <div class="evidence"><div class="seen"><b>已有證據</b><p>鏡頭跨越多套在地圳系；池上與富里並非一個取水口、一套管理。</p></div><div class="prove"><b>反例</b><p>富里鱉溪曾因河床下刷而不易自然取水，部分圳路需抽水或改取伏流水。</p></div></div>
+    </figure>
+    <div class="prose">
+      <p>池上有清代開鑿、後來持續整建的池上圳；到了花蓮側，富里又有富里圳、秋林圳、竹田圳等名字。它們位在同一條縱谷，不代表共用同一個取水口。</p>
+      <p>富里鱉溪的河床持續下刷後，既有攔河堰已不易自然取水，部分圳路一度仰賴抽水，後續工程再改以伏流水改善。山高水低不必然等於全程重力灌溉；河川變動與工程設施也會改變水進入田間的方式。</p>
+      <blockquote class="pull">同樣是農田旁的水路，沒有一套答案可以從濁水溪一路套到花東縱谷。</blockquote>
+      <section class="limits" id="limits">
+        <h2>四種地方，四張水網</h2>
+        <p>濁水溪兩岸分屬不同工程史與現行管理；八卦台地在平原水網中留下清楚邊界；宜蘭的取水與排水密布同一片低地；池上與富里則由多套在地圳系填滿狹長谷底。</p>
+        <p>再回頭看開頭那片近似電路板的紋理，青色線條已經不只是疏密與分岔。它們帶著不同的系統、年代與管理脈絡，沿著各地的地形與水源展開。</p>
+        <h2>資料範圍與限制</h2>
+        <h3>官方總量與圖資自算不可互換</h3><p>年報是 2025 年管理清冊；Pulse 幾何是 2026 年產物，由全國 WFS 與宜蘭 ArcGIS 拼接。年份、範圍與切段方式都不同。</p>
+        <h3>線段不是渠道總數</h3><p>一條具名渠道可以被切成多個 GeoJSON feature。29,469 是目前圖層的幾何段數，不是全台渠道條數。</p>
+        <h3>綠色不等於法定農地</h3><p>田區來自 Fields of The World 的衛星影像 AI 判讀。它適合顯示邊界紋理，不知道田裡種什麼，也可能把規則形公園或空地辨識成 field。</p>
+        <h3>線條沒有流向</h3><p>渠道層能顯示位置與部分屬性，沒有坡降、取水口或完整拓撲。分岔看起來像主幹到支線，仍不能只靠畫面命名。</p>
+        <h3>資料精度會改變視覺</h3><p>宜蘭另有高精度來源，跨區只能比較形態，不能直接比較渠道數量或密度。</p>
+      </section>
+      <section id="sources">
+        <h2>參考資料</h2>
+        <ul class="sources"><li><a href="https://agrstat.moa.gov.tw/moasdweb/book/Book_File.ashx?chapter_id=1440_61_2" target="_blank" rel="noreferrer">農業部《114年農業統計年報》</a> — 全台管理清冊規模。</li><li><a href="https://data.moa.gov.tw/open_detail.aspx?id=C89" target="_blank" rel="noreferrer">農田水利灌排渠道系統圖</a> — 已公告渠道開放圖資。</li><li><a href="https://www.ia.gov.tw/zh-TW/fapi/AttFile?id=2493" target="_blank" rel="noreferrer">農田水利署《灌溉配水技術》</a>、<a href="https://www.ia.gov.tw/zh-TW/fapi/AttFile?id=2494" target="_blank" rel="noreferrer">《灌溉排水原理》</a> — 系統階序與運作。</li><li><a href="https://www.ia.gov.tw/fun/articles?a=1943" target="_blank" rel="noreferrer">臺灣灌溉事業之演進</a> — 八堡圳與嘉南大圳工程史。</li><li><a href="https://www.ia.gov.tw/zh-TW/about/officeContent?a=93&amp;id=29" target="_blank" rel="noreferrer">宜蘭管理處</a>、<a href="https://www.ia.gov.tw/zh-TW/about/EngineeringContent?a=95&amp;edate=&amp;id=182&amp;listid=95&amp;p=1&amp;q=&amp;sdate=" target="_blank" rel="noreferrer">鱉溪取水改善工程</a> — 地方案例。</li><li><a href="https://www.iasme.nat.gov.tw/en/about/Articles?a=10882" target="_blank" rel="noreferrer">Shihmen Management Office: Irrigation Areas</a>、<a href="https://www.mdpi.com/2072-4292/12/20/3315" target="_blank" rel="noreferrer">Choushui River alluvial fan study</a> — 英文交叉來源。</li><li><a href="https://fieldsofthe.world/" target="_blank" rel="noreferrer">Fields of The World</a>、<a href="https://mini-taiwan-pulse.itsmigu.com/" target="_blank" rel="noreferrer">Mini Taiwan Pulse</a> — 田區判讀與互動圖層。</li></ul>
+      </section>
+      <footer class="article-footer"><span>Mini Taiwan Stories</span><span>農田 · 水利 · 地形</span></footer>
+    </div>
+  </article>
+  <aside class="article-rail" aria-label="文章資訊">
+    <section class="rail-group"><span class="rail-label">Article</span><div class="rail-meta"><span><i>◷</i><b>10 分鐘閱讀</b></span><span><i>◫</i><b>2026 年 9 月 5 日</b></span><span><i>◎</i><b>地理 · 資料故事</b></span><span><i>●</i><b>Zeabur 測試版</b></span></div></section>
+    <section class="rail-group"><span class="rail-label">文章選單</span><div class="rail-links"><a href="/articles/demo-irrigation/taiwan-md-preview.html" aria-current="page">01　七萬公里的水路</a><a href="/articles/bathymetry/taiwan-md-preview.html">02　台灣貼著深海的一側</a></div></section>
+    <section class="rail-group"><span class="rail-label">本篇圖層</span><p>農田 · 灌排渠道<br>河川 · 等高線</p></section>
+  </aside>
+</main>
+<footer class="site-footer"><span>以開放資料閱讀台灣地景。</span><span>地圖底圖 © OpenStreetMap</span></footer>
+<script>
+const progress=document.querySelector('.progress i');
+const setProgress=()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;progress.style.width=`${max?Math.min(100,h.scrollTop/max*100):0}%`};
+addEventListener('scroll',setProgress,{passive:true});setProgress();
+
+document.querySelector('[data-article-picker]').addEventListener('change',event=>{location.assign(event.target.value)});
+
+document.querySelectorAll('[data-map]').forEach(card=>{
+  const frame=card.querySelector('iframe');
+  const viewport=card.querySelector('.viewport');
+  const toggle=card.querySelector('[data-map-action="toggle"]');
+  const reset=card.querySelector('[data-map-action="reset"]');
+  let active=false;
+  let resetCount=0;
+  const setActive=value=>{
+    active=value;
+    viewport.dataset.active=String(value);
+    frame.tabIndex=value?0:-1;
+    reset.hidden=!value;
+    toggle.textContent=value?'退出互動':'啟用互動';
+    toggle.setAttribute('aria-pressed',String(value));
+  };
+  toggle.addEventListener('click',()=>setActive(!active));
+  reset.addEventListener('click',()=>{
+    reset.disabled=true;
+    frame.setAttribute('aria-busy','true');
+    const url=new URL(frame.dataset.src,location.href);
+    url.searchParams.set('_embedReset',String(++resetCount));
+    frame.addEventListener('load',()=>{
+      reset.disabled=false;
+      frame.removeAttribute('aria-busy');
+    },{once:true});
+    frame.src=url.toString();
+  });
+  setActive(false);
+});
+</script>
+</body>
+</html>

@@ -45,6 +45,10 @@ articles/01-tra/
 用來確認「穿插地圖與圖表」的節奏對不對。要做成可分享的頁面時，把 iframe 換成
 `figures/` 的靜態圖 + 連結（多數平台會擋 iframe，Artifact 的 CSP 也會）。
 
+目前 `taiwan-md-preview.html` 使用共通閱讀導覽：桌面版左側是單篇目錄、右側是文章資訊，
+header 的文章選單可在已加入 Dockerfile 的文章間切換。新增文章時，需同步加入各文章頁面的
+選單與 Docker route；這是靜態預覽殼，尚未建立自動文章索引。
+
 ### 為什麼要有 data.json
 
 1. **可追溯** — 半年後被問「這個數字怎麼算的」查得回來

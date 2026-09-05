@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "article": "bathymetry",
+    "subject": "台灣東西海底地形的不對稱",
+    "generated": "2026-09-05",
+    "status": "draft-verified",
+    "rule": "只收已進入正文且可追溯或重算的數字；未解決的原稿數字保留在 workbook claim ledger，不寫入 facts"
+  },
+  "facts": {
+    "gebco_2025_grid_interval": {
+      "value": 15,
+      "unit": "arc-second",
+      "as_of": "GEBCO_2025",
+      "scope": "GEBCO_2025 全球海陸地形網格；本圖使用其台灣周邊子集",
+      "method": "核對 GEBCO 歷史資料集說明與本專案 raw catalog",
+      "query": "GEBCO historical data sets > GEBCO_2025 Grid; taipei-gis-analytics gebco_2025 catalog > Raster 規格",
+      "source": "GEBCO / taipei-gis-analytics",
+      "source_url": "https://www.gebco.net/data-products/historical-data-sets",
+      "caveat": "15 arc-second 是網格間距，不代表每個像元都有同等原始測深解析度；不寫成固定 450 m 精度"
+    },
+    "west_shelf_depth_upper_mostly": {
+      "value": 60,
+      "unit": "m water depth",
+      "as_of": "1995 publication",
+      "scope": "台灣西側大陸棚／台灣海峽的官方綜述量級",
+      "method": "擷取官方地質出版品頁面對東西海底的描述",
+      "query": "〈臺灣附近的海洋地質〉頁面：西側大陸棚水深大多小於 60 公尺",
+      "source": "經濟部地質調查及礦業管理中心／《臺灣附近的海洋地質》",
+      "source_url": "https://twgeoref.gsmma.gov.tw/GipOpenWeb/wSite/ct?ctNode=1259&mp=106&xItem=120808",
+      "caveat": "原文是「大多」而非平均值；不可用來支持「平均 50 m」或「深於 100 m 佔 0.8%」"
+    },
+    "east_drop_distance_upper": {
+      "value": 10,
+      "unit": "km offshore",
+      "as_of": "1995 publication",
+      "scope": "台灣東側海底的官方綜述量級",
+      "method": "擷取官方地質出版品頁面對東部陸棚與陸坡的描述",
+      "query": "〈臺灣附近的海洋地質〉頁面：東側海底在距岸不到 10 公里就降至約 1,000 公尺深",
+      "source": "經濟部地質調查及礦業管理中心／《臺灣附近的海洋地質》",
+      "source_url": "https://twgeoref.gsmma.gov.tw/GipOpenWeb/wSite/ct?ctNode=1259&mp=106&xItem=120808",
+      "caveat": "value=10 是「不到 10 km」的上限，不是特定花蓮岸點的測線結果"
+    },
+    "east_drop_depth_approx": {
+      "value": 1000,
+      "unit": "m water depth",
+      "as_of": "1995 publication",
+      "scope": "台灣東側海底的官方綜述量級",
+      "method": "與 east_drop_distance_upper 同一句來源配對擷取",
+      "query": "〈臺灣附近的海洋地質〉頁面：東側海底在距岸不到 10 公里就降至約 1,000 公尺深",
+      "source": "經濟部地質調查及礦業管理中心／《臺灣附近的海洋地質》",
+      "source_url": "https://twgeoref.gsmma.gov.tw/GipOpenWeb/wSite/ct?ctNode=1259&mp=106&xItem=120808",
+      "caveat": "約數、區域量級；不改寫為 1,053 m，也不單獨指向某個花蓮岸點"
+    },
+    "isobath_comparison_depth": {
+      "value": 4000,
+      "unit": "m water depth magnitude",
+      "as_of": "GEBCO_2025-derived layer built 2026-08-23",
+      "scope": "Mini Taiwan Pulse `isobath` 圖層的 -4000 m 等深線級距",
+      "method": "從衍生圖層固定 depth_m 值取得 4,000 m 的絕對數值",
+      "query": "gebco_isobath catalog > 深度級距 > line depth_m includes -4000",
+      "source": "taipei-gis-analytics GEBCO isobath catalog",
+      "source_url": "../../../taipei-gis-analytics/docs/data-catalog/base_map/gebco_isobath.md",
+      "caveat": "這是圖層級距，不是花蓮離岸 18.7 km 的取樣水深；本文只用於量級比較"
+    },
+    "yushan_official_height": {
+      "value": 3952,
+      "unit": "m elevation",
+      "as_of": "official page checked 2026-09-05",
+      "scope": "玉山主峰官方通常引用高度",
+      "method": "核對國土測繪中心台灣高山高程說明",
+      "query": "國土測繪中心 > 台灣高山高程 > 玉山",
+      "source": "內政部國土測繪中心",
+      "source_url": "https://www.nlsc.gov.tw/cp.aspx?n=1486",
+      "caveat": "網格水深與山峰海拔使用不同測量面與方法；只能說 4,000 > 3,952 的數值量級，不稱同一個高程斷面"
+    },
+    "lutao_major_eruption_age": {
+      "value": 1.3,
+      "unit": "million years ago",
+      "as_of": "paper published 2014",
+      "scope": "綠島主要火山噴發期的鋯石 U-Pb 年代估計",
+      "method": "採用論文摘要與研究結論的主要噴發年齡",
+      "query": "Shao, Chung and Chen, TAO 25(1), DOI 10.3319/TAO.2013.11.06.01(TT)",
+      "source": "Terrestrial, Atmospheric and Oceanic Sciences",
+      "source_url": "https://tao.cgu.org.tw/index.php/articles/archive/geology/item/1205",
+      "caveat": "年代代表研究判定的主要火山活動期，不等於島體每一塊岩石的年齡"
+    },
+    "lanyu_major_eruption_age": {
+      "value": 2.6,
+      "unit": "million years ago",
+      "as_of": "paper published 2014",
+      "scope": "蘭嶼主要火山噴發期的鋯石 U-Pb 年代估計",
+      "method": "採用論文摘要與研究結論的主要噴發年齡",
+      "query": "Shao, Chung and Chen, TAO 25(1), DOI 10.3319/TAO.2013.11.06.01(TT)",
+      "source": "Terrestrial, Atmospheric and Oceanic Sciences",
+      "source_url": "https://tao.cgu.org.tw/index.php/articles/archive/geology/item/1205",
+      "caveat": "年代代表研究判定的主要火山活動期，不等於島體每一塊岩石的年齡"
+    },
+    "offshore_wind_zone_count": {
+      "value": 36,
+      "unit": "polygons",
+      "as_of": "Pulse snapshot checked 2026-09-05",
+      "scope": "Mini Taiwan Pulse `offshoreWindZones` 靜態 RPC 快照",
+      "method": "逐筆讀取 get_offshore_wind_zones.json 的 MultiPolygon feature",
+      "query": "len(features)",
+      "source": "Mini Taiwan Pulse static RPC snapshot",
+      "source_url": "../../../mini-taiwan-pulse/public/static-rpc/get_offshore_wind_zones.json",
+      "caveat": "polygon 數不是已完工商轉風場數，也不代表每一筆具有相同法定或開發狀態"
+    },
+    "offshore_wind_zones_fully_below_100m": {
+      "value": 35,
+      "unit": "of 36 polygons",
+      "as_of": "GEBCO_2025 and Pulse snapshot sampled 2026-09-05",
+      "scope": "36 個 offshoreWindZones polygon 內的 GEBCO 海水像元中心",
+      "method": "WGS84 raster cell-center mask；make_valid 後逐 polygon 取樣，排除正高程像元",
+      "query": "count(max_sampled_water_depth_m < 100)",
+      "source": "GEBCO_2025 Taiwan subset × Mini Taiwan Pulse offshore wind snapshot",
+      "source_url": "../../../taipei-gis-analytics/data/raw/base_map/gebco_2025/gebco_2025_taiwan_subset.tif",
+      "caveat": "約 15 arc-second 綜合網格與 cell-center 取樣，只適合區域敘事；不是施工前測深或 polygon 精確面積加權"
+    },
+    "offshore_wind_sample_cells_below_100m_share": {
+      "value": 99.987,
+      "unit": "percent",
+      "as_of": "GEBCO_2025 and Pulse snapshot sampled 2026-09-05",
+      "scope": "36 個風場 polygon 聯集內 15,735 個海水像元中心",
+      "method": "polygon 聯集 cell-center mask；水深為 GEBCO elevation 的負值；排除 14 個正高程像元",
+      "query": "100 * count(depth_m < 100) / 15735",
+      "source": "GEBCO_2025 Taiwan subset × Mini Taiwan Pulse offshore wind snapshot",
+      "source_url": "../../../mini-taiwan-pulse/public/static-rpc/get_offshore_wind_zones.json",
+      "caveat": "重疊 polygon 以聯集計；完整像元中心法未做邊界 fractional overlap。結果顯示空間共現，不證明水深是唯一選址原因"
+    }
+  }
+}

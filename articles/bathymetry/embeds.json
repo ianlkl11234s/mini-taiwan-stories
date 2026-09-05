@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "base": "https://mini-taiwan-pulse.itsmigu.com/embed",
+    "local_base": "http://127.0.0.1:3721/embed",
+    "generated": "2026-09-05",
+    "status": "draft-browser-verified",
+    "rule": "主圖交代台灣東西海底落差；第二張聚焦綠島與蘭嶼，第三張才疊風場，不由共現直接宣稱選址因果"
+  },
+  "embeds": [
+    {
+      "id": "taiwan-shelf-edge",
+      "section": "hero / return",
+      "caption": "台灣西側的寬淺陸棚，與東側緊貼海岸的深海地形",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=120.72417&lat=23.49950&z=6.58&layers=isobath&theme=dark&p.isobathModeIdx=1&p.isobathShowBands=1&p.isobathOpacity=0.85&p.isobathBandOpacity=0.35",
+      "fallback_image": "figures/hero-isobath-final.png",
+      "height": 720,
+      "status": "production-browser-verified-2026-09-05; user-map-gate-approved-2026-09-05",
+      "evidence_scope": "深度帶寬度與等深線疏密的全島級觀察",
+      "caveat": "GEBCO 2025 15 arc-second 綜合網格衍生圖層；不適合航海、點位導航或精確岸垂斷面"
+    },
+    {
+      "id": "green-island-lanyu-peaks",
+      "section": "volcanic islands",
+      "caption": "綠島與蘭嶼周圍等深線迅速收緊，顯示兩座島從東部外海深水區抬升",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=121.42&lat=22.36&z=8.4&layers=isobath&theme=dark&p.isobathModeIdx=1&p.isobathShowBands=1&p.isobathOpacity=0.85&p.isobathBandOpacity=0.35",
+      "fallback_image": "figures/islands-isobath.png",
+      "height": 720,
+      "status": "production-browser-verified-2026-09-05; user-screenshot-approved-2026-09-05",
+      "evidence_scope": "兩座島與台灣東南外海深水色帶、等深線形狀的直接觀察",
+      "caveat": "地圖只顯示海底形狀；火山岩與噴發年代需由野外地質與定年研究判定"
+    },
+    {
+      "id": "west-shelf-wind",
+      "section": "engineering consequence",
+      "caption": "Pulse 的離岸風場範圍集中在台灣西側淺陸棚；這是空間共現，不代表水深單獨決定選址",
+      "url": "https://mini-taiwan-pulse.itsmigu.com/embed?v=1&lng=120.45&lat=23.75&z=7&layers=isobath,offshoreWindZones&theme=dark&p.isobathModeIdx=1&p.isobathShowBands=1&p.isobathOpacity=0.8&p.isobathBandOpacity=0.3&p.offshoreWindZonesOpacity=0.7",
+      "fallback_image": "figures/hero-isobath.png",
+      "height": 720,
+      "status": "production-browser-verified-2026-09-05; user-map-gate-approved; dedicated-static-fallback-pending",
+      "evidence_scope": "離岸風場 polygon 與西側淺水深度帶的區域級空間共現",
+      "caveat": "風場屬 Pulse snapshot；GEBCO 約 15 arc-second，非工程測深。風況、地質、航道、生態、電網與法規同樣影響選址"
+    }
+  ],
+  "candidate_views": [
+    {
+      "id": "ais-bathymetry-followup",
+      "layers": ["isobath", "ships"],
+      "date": "2026-08-06",
+      "status": "split-to-MTS-2026-003; not-map-confirmed",
+      "reason": "產品目前有一份可固定的 ships embed snapshot，但單日疊圖不足以支持船型、國籍或地形偏好",
+      "next_gate": "完成 AIS 接收覆蓋、去重、船型／國籍定義與深度帶暴露量方法"
+    },
+    {
+      "id": "offshore-wind-context",
+      "layers": ["isobath", "offshoreWindZones"],
+      "status": "promoted-to-west-shelf-wind",
+      "reason": "使用者已確認納入；production embed 可繪製，並以 GEBCO cell-center 抽樣確認風場幾乎都在 100 m 以淺，但正文保留工程與政策競爭條件"
+    },
+    {
+      "id": "submarine-cable-context",
+      "layers": ["isobath", "submarineCables", "landingStations"],
+      "status": "omit-from-current-article",
+      "reason": "路徑具可讀性，但 Pulse manifest 將目前海纜資料標為 LOW confidence，只適合概觀插圖"
+    }
+  ]
+}
