@@ -10,6 +10,13 @@
 地圖不自己畫，直接嵌 [mini-taiwan-pulse](../mini-taiwan-pulse) 的 `/embed`
 （MapLibre + 自託管底圖，不論被讀幾次都零 Mapbox 費用）。
 
+## 發布
+
+正式站由 Zeabur 的 GitHub service 部署，追蹤 `ianlkl11234s/mini-taiwan-stories`
+`master` 分支；每次 push 都會依根目錄 `Dockerfile` 自動建置與切換版本。
+正式網址為 <https://mini-tw-demo-irrigation.itsmigu.com/>。本機 `zeabur deploy`
+只保留給明確的手動復原，不作為日常發布流程。
+
 ## 系列規劃
 
 | # | 主題 | 狀態 |
