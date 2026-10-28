@@ -1,0 +1,11 @@
+{
+  "name": "mini-taiwan-stories",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-dist.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.148.0"
+  }
+}

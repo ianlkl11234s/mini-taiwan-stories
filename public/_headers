@@ -1,0 +1,12 @@
+# Cloudflare Workers 靜態資產的 header（原 nginx 預設不設 Cache-Control，這裡維持不快取長期化）
+# 預覽頁與文章文字：帶 charset，避免被以 Latin-1 解讀（nginx 的 .md 原為 octet-stream，會變成下載）
+/*.html
+  Content-Type: text/html; charset=utf-8
+/articles/*/
+  Content-Type: text/html; charset=utf-8
+/articles/*/article.md
+  Content-Type: text/markdown; charset=utf-8
+/articles/*/data.json
+  Content-Type: application/json; charset=utf-8
+/articles/*/embeds.json
+  Content-Type: application/json; charset=utf-8
